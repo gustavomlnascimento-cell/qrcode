@@ -104,10 +104,10 @@ const CONFIG = {
   mensagemAniversario:
     "Que seu novo ciclo seja leve, intenso e cheio de motivos para sorrir. Quero estar pertinho em cada um deles.",
   carta: [
-    "Se você está lendo isto, minha surpresa deu certo. Eu queria transformar em palavras tudo o que você representa para mim, mesmo sabendo que palavra nenhuma consegue dar conta.",
-    "Obrigado por deixar meus dias mais bonitos, por cada conversa, cada risada e até pelos pequenos momentos que parecem comuns, mas que ao seu lado viram as minhas melhores lembranças.",
-    "Neste aniversário e neste Dia dos Namorados, meu maior desejo é continuar construindo uma vida cheia de carinho, cumplicidade e aventuras com você. Eu escolheria você em todas elas.",
-    "Feliz vida, meu amor. Eu te amo.",
+    { numero: 3, simbolo: "Li", nome: "Lítio" },
+    { numero: 60, simbolo: "Nd", nome: "Neodímio" },
+    { numero: 8, simbolo: "O", nome: "Oxigênio" },
+    { numero: 11, simbolo: "Na", nome: "Sódio" },
   ],
   historia: [
     {
@@ -181,7 +181,23 @@ function fillPersonalDetails() {
     year: "numeric",
   });
 
-  $("#letter-copy").innerHTML = CONFIG.carta.map((paragraph) => `<p>${paragraph}</p>`).join("");
+  $("#letter-copy").innerHTML = `
+    <div class="periodic-message" aria-label="Li Nd O Na, lindona">
+      ${CONFIG.carta
+        .map(
+          (element, index) => `
+            ${index ? '<span class="periodic-separator" aria-hidden="true">-</span>' : ""}
+            <span class="periodic-element">
+              <small>${element.numero}</small>
+              <strong>${element.simbolo}</strong>
+              <span>${element.nome}</span>
+            </span>
+          `,
+        )
+        .join("")}
+    </div>
+    <p class="letter-celebration">Feliz aniversário e Feliz Dia dos Namorados!</p>
+  `;
   document.title = `Para ${CONFIG.nomeDela} ♥`;
 }
 

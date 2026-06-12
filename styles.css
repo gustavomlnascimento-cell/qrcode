@@ -2545,11 +2545,62 @@ footer > span {
 
 .letter-paper h2 {
   margin: 20px 0 30px;
-  font: 400 3.2rem var(--serif);
+  font: 400 clamp(2rem, 7vw, 3.2rem) var(--serif);
 }
 
 .letter-paper p {
   line-height: 1.95;
+}
+
+.periodic-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 32px 0;
+}
+
+.periodic-element {
+  display: grid;
+  width: clamp(58px, 15vw, 88px);
+  aspect-ratio: 1;
+  padding: 7px;
+  border: 2px solid var(--wine);
+  color: var(--wine);
+  background: rgba(255, 255, 255, 0.38);
+  box-shadow: 4px 4px 0 rgba(91, 25, 51, 0.12);
+  text-align: center;
+  grid-template-rows: auto 1fr auto;
+}
+
+.periodic-element small {
+  font-size: clamp(0.55rem, 2vw, 0.72rem);
+  line-height: 1;
+  text-align: left;
+}
+
+.periodic-element strong {
+  align-self: center;
+  font: 600 clamp(1.45rem, 6vw, 2.4rem) var(--serif);
+  line-height: 1;
+}
+
+.periodic-element span {
+  overflow: hidden;
+  font-size: clamp(0.45rem, 1.7vw, 0.68rem);
+  text-overflow: ellipsis;
+}
+
+.periodic-separator {
+  margin: 0 clamp(2px, 1vw, 8px);
+  color: var(--wine);
+  font: 600 clamp(1rem, 4vw, 1.6rem) var(--serif);
+}
+
+.letter-celebration {
+  margin: 36px 0 0;
+  color: var(--wine);
+  font: 600 clamp(1.15rem, 4vw, 1.5rem) var(--serif);
+  text-align: center;
 }
 
 .letter-date {
