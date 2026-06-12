@@ -65,8 +65,6 @@ const CONFIG = {
     },
     { tipo: "mensagem", autor: "nubia", texto: "kkkkkkkkkkkkkkkk" },
     { tipo: "mensagem", autor: "nubia", texto: "você me surpreende todos os dias" },
-    { tipo: "mensagem", autor: "gustavo", texto: "então tenho mais uma coisa pra te mostrar 👀" },
-    { tipo: "mensagem", autor: "gustavo", texto: "mas antes quero ver se você consegue passar por um desafio kkk" },
     {
       tipo: "jogo",
       jogo: "memoria",
@@ -74,8 +72,6 @@ const CONFIG = {
       titulo: "Encontre nossos pares",
       icone: "✦",
     },
-    { tipo: "mensagem", autor: "gustavo", texto: "eu sabia que você conseguiria ❤️" },
-    { tipo: "mensagem", autor: "gustavo", texto: "mas ainda não acabou... deixei o destino escolher nosso próximo momento" },
     {
       tipo: "jogo",
       jogo: "roleta",
@@ -83,14 +79,9 @@ const CONFIG = {
       titulo: "Deixe o destino escolher",
       icone: "↻",
     },
-    { tipo: "mensagem", autor: "gustavo", texto: "gostei da escolha 😏 já pode cobrar seu prêmio" },
-    { tipo: "mensagem", autor: "gustavo", texto: "agora deixa eu te mostrar por que preparei tudo isso" },
     { tipo: "conteudo", conteudo: "contador" },
-    { tipo: "mensagem", autor: "gustavo", texto: "e pensar que tudo começou assim..." },
     { tipo: "conteudo", conteudo: "historia" },
-    { tipo: "mensagem", autor: "gustavo", texto: "e ainda faltam muitos motivos pra dizer o quanto você é especial" },
     { tipo: "conteudo", conteudo: "motivos" },
-    { tipo: "mensagem", autor: "gustavo", texto: "feliz aniversário e feliz dia dos namorados ❤️" },
     { tipo: "conteudo", conteudo: "aniversario" },
     {
       tipo: "mensagem",
@@ -101,7 +92,6 @@ const CONFIG = {
     { tipo: "mensagem", autor: "nubia", texto: "fico até com medo......", rapido: true },
     { tipo: "mensagem", autor: "nubia", texto: "KKKKKKKKKKK", reacao: "😂", rapido: true },
     { tipo: "mensagem", autor: "nubia", texto: "pode entregar", reacao: "❤️", rapido: true },
-    { tipo: "mensagem", autor: "gustavo", texto: "por último, escrevi uma coisa que queria que você lesse com calma" },
     { tipo: "conteudo", conteudo: "carta" },
   ],
   inicioRelacionamento: "2023-06-12T20:00:00",
@@ -673,18 +663,7 @@ function setupChatIntro() {
     }
   };
 
-  const continueAfterAction = (result) => {
-    if (result) {
-      const bubble = document.createElement("div");
-      bubble.className = "chat-message chat-message--received";
-      bubble.dataset.author = "gustavo";
-      bubble.textContent =
-        result === "__skip__"
-          ? "sem problema, vamos continuar por aqui 🙂"
-          : `A roleta escolheu: ${result} 🎉`;
-      messages.appendChild(bubble);
-      messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
-    }
+  const continueAfterAction = () => {
     currentAction = null;
     actionCard.hidden = true;
     playConversation();
