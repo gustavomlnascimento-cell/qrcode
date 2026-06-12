@@ -1247,6 +1247,111 @@ button {
   opacity: 0.65;
 }
 
+.word-game {
+  width: min(350px, 100%);
+  margin: -8px auto 0;
+}
+
+.word-board {
+  display: grid;
+  width: min(300px, 100%);
+  margin: 0 auto;
+  gap: 5px;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.word-cell {
+  display: grid;
+  aspect-ratio: 1;
+  border: 1px solid #d9cfe0;
+  border-radius: 6px;
+  color: #37233b;
+  background: rgba(255, 255, 255, 0.72);
+  font-size: clamp(0.72rem, 3vw, 1rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, color 0.2s ease, background 0.2s ease;
+  place-items: center;
+}
+
+.word-cell.is-filled {
+  border-color: #9a6eb1;
+  transform: scale(1.04);
+}
+
+.word-cell.is-correct {
+  border-color: #793bec;
+  color: white;
+  background: #793bec;
+}
+
+.word-cell.is-present {
+  border-color: #dc35a4;
+  color: white;
+  background: #dc35a4;
+}
+
+.word-cell.is-absent {
+  border-color: #a6a0aa;
+  color: white;
+  background: #a6a0aa;
+}
+
+.word-status {
+  min-height: 18px;
+  margin: 8px 0 5px;
+  color: #b12e95;
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.word-keyboard {
+  display: grid;
+  gap: 5px;
+}
+
+.word-keyboard__row {
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+}
+
+.word-key {
+  min-width: 0;
+  height: 34px;
+  padding: 0 7px;
+  border: 0;
+  border-radius: 5px;
+  color: #342b38;
+  background: #ded9e1;
+  font-size: 0.62rem;
+  font-weight: 700;
+  cursor: pointer;
+  flex: 1 1 0;
+}
+
+.word-key--wide {
+  padding: 0 6px;
+  font-size: 0.5rem;
+  flex-grow: 1.45;
+}
+
+.word-key[data-state="correct"] {
+  color: white;
+  background: #793bec;
+}
+
+.word-key[data-state="present"] {
+  color: white;
+  background: #dc35a4;
+}
+
+.word-key[data-state="absent"] {
+  color: white;
+  background: #918b95;
+}
+
 .chat-game__success {
   position: absolute;
   z-index: 2;
