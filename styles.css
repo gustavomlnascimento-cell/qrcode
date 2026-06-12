@@ -57,8 +57,8 @@ button {
   overflow: hidden;
   color: #f5f5f7;
   background:
-    radial-gradient(circle at 50% 120%, rgba(129, 38, 75, 0.35), transparent 46%),
-    #0b0b0d;
+    radial-gradient(circle at 28% 50%, rgba(177, 77, 119, 0.2), transparent 25%),
+    linear-gradient(135deg, #f8f3f8, #eee7f4);
   place-items: center;
   transition: opacity 0.65s ease, visibility 0.65s ease, transform 0.65s ease;
 }
@@ -70,23 +70,245 @@ button {
   transform: scale(1.025);
 }
 
+.chat-showcase {
+  display: grid;
+  width: min(1120px, calc(100% - 56px));
+  align-items: center;
+  gap: clamp(60px, 9vw, 135px);
+  grid-template-columns: 430px 1fr;
+}
+
+.phone-scene {
+  position: relative;
+  display: grid;
+  min-height: 740px;
+  place-items: center;
+}
+
+.phone-scene.is-highlighted .phone-shell {
+  animation: phone-focus 0.65s ease;
+}
+
+.phone-shell {
+  position: relative;
+  z-index: 2;
+  width: 382px;
+  height: 746px;
+  padding: 10px;
+  border: 2px solid #c9c6cf;
+  border-radius: 58px;
+  background: linear-gradient(145deg, #dad8df, #86848d 45%, #e5e3e8 72%, #8c8991);
+  box-shadow:
+    0 42px 75px rgba(69, 45, 78, 0.28),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+}
+
 .chat-phone {
   position: relative;
   display: flex;
-  width: min(100%, 430px);
-  height: min(100svh, 820px);
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  border: 2px solid #08080a;
+  border-radius: 48px;
   background:
     radial-gradient(circle at 50% 38%, rgba(74, 34, 50, 0.13), transparent 36%),
     #0d0d10;
   flex-direction: column;
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.phone-button {
+  position: absolute;
+  display: block;
+  width: 4px;
+  border-radius: 3px;
+  background: #7e7b84;
+}
+
+.phone-button--mute {
+  top: 115px;
+  left: -5px;
+  height: 27px;
+}
+
+.phone-button--volume-one {
+  top: 161px;
+  left: -5px;
+  height: 55px;
+}
+
+.phone-button--volume-two {
+  top: 229px;
+  left: -5px;
+  height: 55px;
+}
+
+.phone-button--power {
+  top: 174px;
+  right: -5px;
+  height: 82px;
+}
+
+.phone-status {
+  position: relative;
+  display: flex;
+  height: 40px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 21px 0;
+  color: white;
+  font-size: 0.66rem;
+  font-weight: 700;
+}
+
+.phone-island {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 94px;
+  height: 25px;
+  border-radius: 20px;
+  background: #010102;
+  transform: translateX(-50%);
+}
+
+.phone-signals {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.phone-signals i {
+  display: block;
+  width: 2px;
+  height: 5px;
+  background: white;
+}
+
+.phone-signals i:nth-child(2) {
+  height: 7px;
+}
+
+.phone-signals i:nth-child(3) {
+  height: 9px;
+}
+
+.phone-signals b {
+  display: block;
+  width: 13px;
+  height: 7px;
+  margin-left: 4px;
+  border: 1px solid white;
+  border-radius: 2px;
+}
+
+.phone-home {
+  position: absolute;
+  z-index: 4;
+  bottom: 6px;
+  left: 50%;
+  width: 115px;
+  height: 4px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateX(-50%);
+}
+
+.phone-heart {
+  position: absolute;
+  z-index: 1;
+  color: #c47ac1;
+  font-size: 6rem;
+  opacity: 0.68;
+  filter: drop-shadow(0 13px 14px rgba(87, 45, 103, 0.17));
+  animation: phone-heart-float 4s ease-in-out infinite alternate;
+}
+
+.phone-heart--one {
+  top: 70px;
+  left: -58px;
+  transform: rotate(-15deg);
+}
+
+.phone-heart--two {
+  top: 110px;
+  right: -65px;
+  color: #a868df;
+  transform: rotate(14deg);
+  animation-delay: -1.4s;
+}
+
+.phone-heart--three {
+  right: -48px;
+  bottom: 95px;
+  color: #d990c8;
+  font-size: 4.5rem;
+  transform: rotate(-8deg);
+  animation-delay: -2.5s;
+}
+
+.chat-presentation {
+  color: #35192a;
+}
+
+.chat-presentation__icon {
+  display: grid;
+  width: 66px;
+  height: 66px;
+  margin-bottom: 28px;
+  border: 1px solid rgba(118, 31, 58, 0.24);
+  border-radius: 50%;
+  color: var(--wine);
+  font-size: 1.2rem;
+  place-items: center;
+}
+
+.chat-presentation p {
+  margin: 0;
+  color: #9a7e91;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.chat-presentation h1 {
+  margin: 10px 0 18px;
+  color: var(--wine-dark);
+  font: 400 clamp(3.6rem, 6vw, 6.4rem)/0.9 var(--serif);
+}
+
+.chat-presentation > span:not(.chat-presentation__icon) {
+  display: block;
+  max-width: 430px;
+  color: #7c6875;
+  font: italic 1.15rem/1.6 Georgia, serif;
+}
+
+.chat-presentation button {
+  display: inline-flex;
+  align-items: center;
+  gap: 38px;
+  margin-top: 36px;
+  padding: 15px 24px;
+  border: 0;
+  border-radius: 99px;
+  color: white;
+  background: var(--wine);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(118, 31, 58, 0.22);
+}
+
+.chat-presentation button b {
+  font-size: 1.15rem;
+  font-weight: 400;
 }
 
 .chat-header {
   display: flex;
-  min-height: 76px;
+  min-height: 65px;
   align-items: center;
   gap: 11px;
   padding: 12px 16px;
@@ -319,7 +541,7 @@ button {
 .chat-composer {
   position: absolute;
   right: 12px;
-  bottom: 18px;
+  bottom: 22px;
   left: 12px;
   display: flex;
   height: 48px;
@@ -1701,6 +1923,14 @@ footer > span {
   }
 }
 
+@keyframes phone-heart-float {
+  to { translate: 0 -13px; }
+}
+
+@keyframes phone-focus {
+  50% { transform: scale(1.025); }
+}
+
 @keyframes equalizer {
   to { height: 14px; }
 }
@@ -1726,10 +1956,41 @@ footer > span {
 }
 
 @media (max-width: 720px) {
+  .chat-showcase {
+    display: block;
+    width: 100%;
+    height: 100svh;
+  }
+
+  .phone-scene {
+    min-height: 100svh;
+  }
+
+  .phone-shell {
+    width: 100%;
+    height: 100svh;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
   .chat-phone {
     width: 100%;
     height: 100svh;
     border: 0;
+    border-radius: 0;
+  }
+
+  .phone-button,
+  .phone-heart,
+  .chat-presentation {
+    display: none;
+  }
+
+  .phone-status {
+    padding-top: max(7px, env(safe-area-inset-top));
   }
 
   .nav {

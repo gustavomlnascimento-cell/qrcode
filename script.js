@@ -407,6 +407,7 @@ function setupChatIntro() {
   const messages = $("#chat-messages");
   const typing = $("#chat-typing");
   const gift = $("#chat-gift");
+  const phoneScene = $(".phone-scene");
   let stopped = false;
 
   const wait = (duration) => new Promise((resolve) => window.setTimeout(resolve, duration));
@@ -444,6 +445,20 @@ function setupChatIntro() {
 
   gift.addEventListener("click", finishChat);
   $("#chat-skip").addEventListener("click", finishChat);
+  $("#chat-focus").addEventListener("click", () => {
+    phoneScene.classList.remove("is-highlighted");
+    window.requestAnimationFrame(() => phoneScene.classList.add("is-highlighted"));
+    window.setTimeout(() => phoneScene.classList.remove("is-highlighted"), 700);
+  });
+
+  const updatePhoneTime = () => {
+    $("#phone-time").textContent = new Date().toLocaleTimeString("pt-BR", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+  updatePhoneTime();
+  window.setInterval(updatePhoneTime, 30_000);
   playConversation();
 }
 

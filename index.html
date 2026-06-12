@@ -22,46 +22,74 @@
     <div class="noise" aria-hidden="true"></div>
 
     <section class="chat-intro" id="chat-intro" aria-label="Conversa especial">
-      <div class="chat-phone">
-        <header class="chat-header">
-          <button class="chat-header__back" type="button" aria-label="Voltar">‹</button>
-          <div class="chat-avatar">
-            <img id="chat-avatar-image" alt="" hidden />
-            <span id="chat-avatar-initials">SA</span>
-            <i aria-hidden="true"></i>
-          </div>
-          <div class="chat-profile">
-            <strong id="chat-profile-name">Seu Amor</strong>
-            <span id="chat-profile-user">@seuamor</span>
-          </div>
-          <div class="chat-header__actions" aria-hidden="true">
-            <span>◇</span>
-            <span>○</span>
-          </div>
-        </header>
+      <div class="chat-showcase">
+        <div class="phone-scene">
+          <span class="phone-heart phone-heart--one" aria-hidden="true">♥</span>
+          <span class="phone-heart phone-heart--two" aria-hidden="true">♥</span>
+          <span class="phone-heart phone-heart--three" aria-hidden="true">♥</span>
+          <div class="phone-shell">
+            <i class="phone-button phone-button--mute" aria-hidden="true"></i>
+            <i class="phone-button phone-button--volume-one" aria-hidden="true"></i>
+            <i class="phone-button phone-button--volume-two" aria-hidden="true"></i>
+            <i class="phone-button phone-button--power" aria-hidden="true"></i>
+            <div class="chat-phone">
+              <div class="phone-status" aria-hidden="true">
+                <time id="phone-time">09:41</time>
+                <span class="phone-island"></span>
+                <span class="phone-signals"><i></i><i></i><i></i><b></b></span>
+              </div>
 
-        <div class="chat-day">Hoje</div>
-        <div class="chat-messages" id="chat-messages" aria-live="polite"></div>
+              <header class="chat-header">
+                <button class="chat-header__back" type="button" aria-label="Voltar">‹</button>
+                <div class="chat-avatar">
+                  <img id="chat-avatar-image" alt="" hidden />
+                  <span id="chat-avatar-initials">SA</span>
+                  <i aria-hidden="true"></i>
+                </div>
+                <div class="chat-profile">
+                  <strong id="chat-profile-name">Seu Amor</strong>
+                  <span id="chat-profile-user">@seuamor</span>
+                </div>
+                <div class="chat-header__actions" aria-hidden="true">
+                  <span>◇</span>
+                  <span>○</span>
+                </div>
+              </header>
 
-        <div class="chat-typing" id="chat-typing" aria-label="Digitando" hidden>
-          <i></i><i></i><i></i>
+              <div class="chat-day">Hoje</div>
+              <div class="chat-messages" id="chat-messages" aria-live="polite"></div>
+
+              <div class="chat-typing" id="chat-typing" aria-label="Digitando" hidden>
+                <i></i><i></i><i></i>
+              </div>
+
+              <button class="chat-gift" id="chat-gift" type="button" hidden>
+                <span class="chat-gift__icon" aria-hidden="true">♥</span>
+                <span>
+                  <small>Uma mensagem especial</small>
+                  <strong>Toque para abrir seu presente</strong>
+                </span>
+                <b aria-hidden="true">›</b>
+              </button>
+
+              <button class="chat-skip" id="chat-skip" type="button">Pular conversa</button>
+
+              <div class="chat-composer" aria-hidden="true">
+                <span></span>
+                <p>Mensagem...</p>
+                <i>♡</i>
+              </div>
+              <span class="phone-home" aria-hidden="true"></span>
+            </div>
+          </div>
         </div>
 
-        <button class="chat-gift" id="chat-gift" type="button" hidden>
-          <span class="chat-gift__icon" aria-hidden="true">♥</span>
-          <span>
-            <small>Uma mensagem especial</small>
-            <strong>Toque para abrir seu presente</strong>
-          </span>
-          <b aria-hidden="true">›</b>
-        </button>
-
-        <button class="chat-skip" id="chat-skip" type="button">Pular conversa</button>
-
-        <div class="chat-composer" aria-hidden="true">
-          <span></span>
-          <p>Mensagem...</p>
-          <i>♡</i>
+        <div class="chat-presentation">
+          <span class="chat-presentation__icon" aria-hidden="true">♥</span>
+          <p>Uma mensagem chegou para</p>
+          <h1 data-name>meu amor</h1>
+          <span>Talvez seja melhor abrir com o coração.</span>
+          <button id="chat-focus" type="button">Ver a mensagem <b>→</b></button>
         </div>
       </div>
     </section>
