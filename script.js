@@ -60,7 +60,7 @@ const CONFIG = {
       texto:
         "presentinho dos dias dos namorados (vulgo niver), posso te entregar? 🍫🌹\n\ncartaozinho de mensagem vai ta no qrcode customizado..\n\n(engenharia de software) haha",
       rapido: true,
-      pausaDepois: 5000,
+      pausaDepois: 3000,
     },
     { tipo: "mensagem", autor: "nubia", texto: "fico até com medo......", rapido: true, pausaDepois: 2200 },
     { tipo: "mensagem", autor: "nubia", texto: "KKKKKKKKKKK", reacao: "😂", rapido: true, pausaDepois: 1800 },
