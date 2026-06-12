@@ -36,6 +36,8 @@ const CONFIG = {
     },
     { tipo: "data", texto: "29 de abril" },
     { tipo: "mensagem", autor: "gustavo", texto: "se vc quiser ir no sábado~domingo ou quando tiver disponibilidade...", rapido: true },
+    { tipo: "data", texto: "13 de maio" },
+    { tipo: "mensagem", autor: "gustavo", texto: "eai princesa, ta por onde?", rapido: true },
     { tipo: "data", texto: "14 de maio" },
     { tipo: "audio", autor: "gustavo", duracao: "0:13" },
     { tipo: "foto", autor: "gustavo", arquivo: "media/IMG-20260612-WA0024.jpg", temporaria: true },
