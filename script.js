@@ -89,7 +89,7 @@ const CONFIG = {
     { tipo: "conteudo", conteudo: "aniversario" },
     { tipo: "conteudo", conteudo: "carta" },
   ],
-  inicioRelacionamento: "2023-06-12T20:00:00",
+  inicioRelacionamento: "2024-10-01T00:00:00",
   dataEspecial: "2026-06-12T00:00:00",
   musica: "", // Exemplo: "assets/nossa-musica.mp3"
   mensagemDeVoz: "", // Exemplo: "assets/minha-voz.mp3"
@@ -725,12 +725,14 @@ function appendChatContent(type, messages) {
 
   if (type === "contador") {
     const start = new Date(CONFIG.inicioRelacionamento);
-    const totalDays = Math.max(0, Math.floor((Date.now() - start.getTime()) / 86_400_000));
-    const years = Math.floor(totalDays / 365.2425);
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const totalDays = Math.max(0, Math.floor((today.getTime() - start.getTime()) / 86_400_000));
     card.innerHTML = `
-      <small>Desde que tudo começou</small>
+      <img class="chat-counter-photo" src="media/tempo.jpg" alt="Atividade compartilhada no Instagram desde outubro de 2024">
+      <small>Desde outubro de 2024</small>
       <strong>${totalDays.toLocaleString("pt-BR")} dias</strong>
-      <p>${years > 0 ? `${years} anos` : "cada dia"} colecionando momentos com você.</p>
+      <p>desde que começamos a nos seguir e colecionar momentos.</p>
     `;
   }
 
