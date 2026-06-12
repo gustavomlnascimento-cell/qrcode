@@ -631,52 +631,6 @@ button {
   font-size: 2rem;
 }
 
-.chat-timeline {
-  position: relative;
-  display: grid;
-  gap: 15px;
-  margin-top: 14px;
-}
-
-.chat-timeline::before {
-  position: absolute;
-  top: 7px;
-  bottom: 7px;
-  left: 4px;
-  width: 1px;
-  background: #d9c7e5;
-  content: "";
-}
-
-.chat-timeline > div {
-  position: relative;
-  display: grid;
-  padding-left: 20px;
-}
-
-.chat-timeline i {
-  position: absolute;
-  top: 5px;
-  left: 0;
-  width: 9px;
-  height: 9px;
-  border: 2px solid white;
-  border-radius: 50%;
-  background: #9b35dc;
-  box-shadow: 0 0 0 1px #9b35dc;
-}
-
-.chat-timeline span {
-  color: #9a7699;
-  font-size: 0.58rem;
-  text-transform: uppercase;
-}
-
-.chat-timeline strong {
-  margin-top: 2px;
-  font-size: 0.75rem;
-}
-
 .chat-photo-grid {
   display: grid;
   height: 235px;

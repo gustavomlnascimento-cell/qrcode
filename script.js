@@ -86,7 +86,6 @@ const CONFIG = {
       icone: "↻",
     },
     { tipo: "conteudo", conteudo: "contador" },
-    { tipo: "conteudo", conteudo: "historia" },
     { tipo: "conteudo", conteudo: "aniversario" },
     { tipo: "conteudo", conteudo: "carta" },
   ],
@@ -732,26 +731,6 @@ function appendChatContent(type, messages) {
       <small>Desde que tudo começou</small>
       <strong>${totalDays.toLocaleString("pt-BR")} dias</strong>
       <p>${years > 0 ? `${years} anos` : "cada dia"} colecionando momentos com você.</p>
-    `;
-  }
-
-  if (type === "historia") {
-    card.innerHTML = `
-      <small>Nossa história</small>
-      <div class="chat-timeline">
-        ${CONFIG.historia
-          .slice(0, 3)
-          .map(
-            (item) => `
-              <div>
-                <i></i>
-                <span>${item.data}</span>
-                <strong>${item.titulo}</strong>
-              </div>
-            `,
-          )
-          .join("")}
-      </div>
     `;
   }
 
