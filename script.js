@@ -526,6 +526,7 @@ function setupChatIntro() {
   let currentAction = null;
   let stepIndex = 0;
   let currentViewer = "gustavo";
+  let playbackId = 0;
 
   const wait = (duration) => new Promise((resolve) => window.setTimeout(resolve, duration));
 
@@ -610,10 +611,10 @@ function setupChatIntro() {
     actionCard.hidden = false;
   };
 
-  const playConversation = async () => {
+  const playConversation = async (runId = playbackId) => {
     await wait(650);
 
-    while (stepIndex < CONFIG.roteiroChat.length) {
+    while (runId === playbackId && stepIndex < CONFIG.roteiroChat.length) {
       const step = CONFIG.roteiroChat[stepIndex];
       stepIndex += 1;
       if (step.tipo === "data") {
@@ -679,7 +680,7 @@ function setupChatIntro() {
   const continueAfterAction = () => {
     currentAction = null;
     actionCard.hidden = true;
-    playConversation();
+    playConversation(playbackId);
   };
 
   actionCard.addEventListener("click", () => {
@@ -698,7 +699,25 @@ function setupChatIntro() {
   };
   updatePhoneTime();
   window.setInterval(updatePhoneTime, 30_000);
-  playConversation();
+
+  const restartConversation = () => {
+    playbackId += 1;
+    stepIndex = 0;
+    currentAction = null;
+    currentViewer = "gustavo";
+    messages.innerHTML = "";
+    messages.scrollTop = 0;
+    typing.hidden = true;
+    actionCard.hidden = true;
+    $("#chat-game").hidden = true;
+    $(".chat-composer").classList.remove("is-typing");
+    $("#chat-composer-text").textContent = "Mensagem...";
+    setChatPerspective("gustavo", false);
+    playConversation(playbackId);
+  };
+
+  restartConversation();
+  return restartConversation;
 }
 
 function appendChatContent(type, messages) {
@@ -1099,15 +1118,20 @@ function setupInteractions(playMusic) {
   });
 }
 
-function setupLetterModal() {
+function setupLetterModal(restartConversation) {
   const modal = $("#letter-modal");
   $("#close-letter").addEventListener("click", () => modal.close());
+  $("#replay-conversation").addEventListener("click", () => {
+    modal.close();
+    restartConversation();
+    $("#chat-intro").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
   modal.addEventListener("click", (event) => {
     if (event.target === modal) modal.close();
   });
 }
 
 fillPersonalDetails();
-setupChatIntro();
+const restartConversation = setupChatIntro();
 setupMessageReactions();
-setupLetterModal();
+setupLetterModal(restartConversation);
