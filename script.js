@@ -676,7 +676,7 @@ function setupChatIntro() {
         bubble.appendChild(reaction);
       }
       messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
-      await wait(step.pausaDepois ?? (step.rapido ? 300 : 480));
+      await wait(step.pausaDepois ?? (step.rapido ? 1200 : 650));
     }
   };
 
