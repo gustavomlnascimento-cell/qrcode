@@ -983,7 +983,7 @@ function setupRouletteGame(onComplete) {
   $("#game-step").textContent = "Desafio 02";
   $("#game-score").textContent = "1 giro disponível";
   $("#game-title").textContent = "Roleta surpresa";
-  $(".chat-game__intro p").textContent = "O destino escolhe nosso próximo momento";
+  $(".chat-game__intro p").textContent = "";
   $(".chat-game__intro small").textContent = "Toque no botão e descubra o seu prêmio.";
   spinButton.disabled = false;
   spinButton.textContent = "Girar a roleta";

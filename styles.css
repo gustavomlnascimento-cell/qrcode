@@ -1055,6 +1055,10 @@ button {
   text-transform: uppercase;
 }
 
+.chat-game__intro p:empty {
+  display: none;
+}
+
 .chat-game__intro h2 {
   margin: 0 0 9px;
   font: 400 2.35rem/1 var(--serif);
