@@ -79,13 +79,6 @@ const CONFIG = {
       titulo: "Deixe o destino escolher",
       icone: "↻",
     },
-    {
-      tipo: "jogo",
-      jogo: "palavras",
-      rotulo: "Jogo de palavras",
-      titulo: "Descubra a palavra secreta",
-      icone: "⌨",
-    },
     { tipo: "conteudo", conteudo: "contador" },
     { tipo: "conteudo", conteudo: "historia" },
     { tipo: "conteudo", conteudo: "motivos" },
@@ -696,7 +689,7 @@ function setupChatIntro() {
   actionCard.addEventListener("click", () => {
     if (currentAction?.tipo === "jogo") {
       actionCard.hidden = true;
-      const games = { memoria: setupMemoryGame, roleta: setupRouletteGame, palavras: setupWordGame };
+      const games = { memoria: setupMemoryGame, roleta: setupRouletteGame };
       games[currentAction.jogo]?.(continueAfterAction);
     }
   });
@@ -896,7 +889,6 @@ function setupMemoryGame(onComplete) {
   const game = $("#chat-game");
   const board = $("#couple-memory");
   const roulette = $("#surprise-roulette");
-  const wordGame = $("#word-game");
   const success = $("#game-success");
   const symbols = ["♥", "✦", "🎁"];
   const cards = [...symbols, ...symbols].sort(() => Math.random() - 0.5);
@@ -920,7 +912,6 @@ function setupMemoryGame(onComplete) {
   success.hidden = true;
   board.hidden = false;
   roulette.hidden = true;
-  wordGame.hidden = true;
   $("#game-step").textContent = "Desafio 01";
   $("#game-title").textContent = "Encontre os pares";
   $(".chat-game__intro > span").textContent = "♥";
@@ -981,7 +972,6 @@ function setupRouletteGame(onComplete) {
   const game = $("#chat-game");
   const board = $("#couple-memory");
   const roulette = $("#surprise-roulette");
-  const wordGame = $("#word-game");
   const wheel = $("#roulette-wheel");
   const spinButton = $("#roulette-spin");
   const success = $("#game-success");
@@ -1006,7 +996,6 @@ function setupRouletteGame(onComplete) {
 
   board.hidden = true;
   roulette.hidden = false;
-  wordGame.hidden = true;
   success.hidden = true;
   game.hidden = false;
   $("#game-step").textContent = "Desafio 02";
@@ -1045,153 +1034,6 @@ function setupRouletteGame(onComplete) {
   $("#game-return").onclick = () => {
     game.hidden = true;
     onComplete(result);
-  };
-}
-
-function setupWordGame(onComplete) {
-  const game = $("#chat-game");
-  const memory = $("#couple-memory");
-  const roulette = $("#surprise-roulette");
-  const wordGame = $("#word-game");
-  const board = $("#word-board");
-  const keyboard = $("#word-keyboard");
-  const status = $("#word-status");
-  const success = $("#game-success");
-  const answer = "SORRISO";
-  const maxAttempts = 5;
-  const keyboardRows = ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"];
-  let attempt = 0;
-  let guess = "";
-  let finished = false;
-
-  board.innerHTML = Array.from({ length: maxAttempts * answer.length }, (_, index) => {
-    const row = Math.floor(index / answer.length);
-    const column = index % answer.length;
-    return `<span class="word-cell" data-row="${row}" data-column="${column}"></span>`;
-  }).join("");
-
-  keyboard.innerHTML = keyboardRows
-    .map(
-      (row, index) => `
-        <div class="word-keyboard__row">
-          ${index === 2 ? '<button type="button" data-key="ENTER" class="word-key word-key--wide">Enter</button>' : ""}
-          ${[...row].map((letter) => `<button type="button" data-key="${letter}" class="word-key">${letter}</button>`).join("")}
-          ${index === 2 ? '<button type="button" data-key="BACKSPACE" class="word-key word-key--wide" aria-label="Apagar">⌫</button>' : ""}
-        </div>
-      `,
-    )
-    .join("");
-
-  memory.hidden = true;
-  roulette.hidden = true;
-  wordGame.hidden = false;
-  success.hidden = true;
-  game.hidden = false;
-  $("#game-step").textContent = "Desafio 03";
-  $("#game-score").textContent = `1 de ${maxAttempts} tentativas`;
-  $("#game-title").textContent = "O que eu mais gosto em você";
-  $(".chat-game__intro > span").textContent = "⌨";
-  $(".chat-game__intro p").textContent = "Descubra a palavra secreta";
-  $(".chat-game__intro small").textContent = `A resposta tem ${answer.length} letras.`;
-  status.textContent = "";
-
-  const updateRow = () => {
-    $$(`.word-cell[data-row="${attempt}"]`, board).forEach((cell, index) => {
-      cell.textContent = guess[index] || "";
-      cell.classList.toggle("is-filled", Boolean(guess[index]));
-    });
-  };
-
-  const finish = (won) => {
-    finished = true;
-    $("#game-success-title").textContent = won ? "SORRISO!" : "A palavra era SORRISO";
-    $("#game-success-text").textContent = won
-      ? "É uma das coisas mais lindas em você."
-      : "Mesmo assim, seu sorriso continua sendo minha resposta.";
-    window.setTimeout(() => {
-      success.hidden = false;
-      if (won) createHearts(18);
-    }, 650);
-  };
-
-  const submitGuess = () => {
-    if (guess.length !== answer.length) {
-      status.textContent = `Digite ${answer.length} letras.`;
-      return;
-    }
-
-    const remaining = [...answer];
-    const result = Array(answer.length).fill("absent");
-
-    [...guess].forEach((letter, index) => {
-      if (letter === answer[index]) {
-        result[index] = "correct";
-        remaining[index] = null;
-      }
-    });
-
-    [...guess].forEach((letter, index) => {
-      if (result[index] === "correct") return;
-      const found = remaining.indexOf(letter);
-      if (found !== -1) {
-        result[index] = "present";
-        remaining[found] = null;
-      }
-    });
-
-    $$(`.word-cell[data-row="${attempt}"]`, board).forEach((cell, index) => {
-      window.setTimeout(() => cell.classList.add(`is-${result[index]}`), index * 80);
-    });
-
-    [...guess].forEach((letter, index) => {
-      const key = $(`[data-key="${letter}"]`, keyboard);
-      if (key && result[index] === "correct") key.dataset.state = "correct";
-      else if (key && result[index] === "present" && key.dataset.state !== "correct") key.dataset.state = "present";
-      else if (key && !key.dataset.state) key.dataset.state = "absent";
-    });
-
-    if (guess === answer) {
-      finish(true);
-      return;
-    }
-
-    attempt += 1;
-    guess = "";
-    status.textContent = "";
-    if (attempt >= maxAttempts) {
-      finish(false);
-    } else {
-      $("#game-score").textContent = `${attempt + 1} de ${maxAttempts} tentativas`;
-    }
-  };
-
-  keyboard.onclick = (event) => {
-    if (finished) return;
-    const button = event.target.closest("[data-key]");
-    if (!button) return;
-    const key = button.dataset.key;
-
-    if (key === "ENTER") {
-      submitGuess();
-    } else if (key === "BACKSPACE") {
-      guess = guess.slice(0, -1);
-      status.textContent = "";
-      updateRow();
-    } else if (guess.length < answer.length) {
-      guess += key;
-      status.textContent = "";
-      updateRow();
-    }
-  };
-
-  $("#game-skip").onclick = () => {
-    game.hidden = true;
-    onComplete("__skip__");
-  };
-
-  $("#game-return").onclick = () => {
-    game.hidden = true;
-    onComplete(answer);
   };
 }
 
