@@ -2528,6 +2528,12 @@ footer > span {
   line-height: 1.95;
 }
 
+.letter-elements-copy {
+  margin: -12px 0 26px;
+  color: var(--wine);
+  font: 600 clamp(1.05rem, 3vw, 1.3rem) var(--serif);
+}
+
 .periodic-message {
   display: flex;
   align-items: center;
