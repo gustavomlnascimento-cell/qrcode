@@ -363,6 +363,10 @@ button {
   scrollbar-width: none;
 }
 
+.chat-messages.has-action-card {
+  padding-bottom: 248px;
+}
+
 .chat-messages::-webkit-scrollbar {
   display: none;
 }

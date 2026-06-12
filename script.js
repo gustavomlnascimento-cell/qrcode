@@ -607,7 +607,11 @@ function setupChatIntro() {
     $("#chat-card-label").textContent = step.rotulo;
     $("#chat-card-title").textContent = step.titulo;
     $("#chat-card-icon").textContent = step.icone;
+    messages.classList.add("has-action-card");
     actionCard.hidden = false;
+    window.requestAnimationFrame(() => {
+      messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
+    });
   };
 
   const playConversation = async (runId = playbackId) => {
@@ -678,6 +682,7 @@ function setupChatIntro() {
 
   const continueAfterAction = () => {
     currentAction = null;
+    messages.classList.remove("has-action-card");
     actionCard.hidden = true;
     playConversation(playbackId);
   };
@@ -705,6 +710,7 @@ function setupChatIntro() {
     currentAction = null;
     currentViewer = "gustavo";
     messages.innerHTML = "";
+    messages.classList.remove("has-action-card");
     messages.scrollTop = 0;
     typing.hidden = true;
     actionCard.hidden = true;
