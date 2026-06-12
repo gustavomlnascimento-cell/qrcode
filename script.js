@@ -5,6 +5,8 @@ const CONFIG = {
   inicioRelacionamento: "2023-06-12T20:00:00",
   dataEspecial: "2026-06-12T00:00:00",
   musica: "", // Exemplo: "assets/nossa-musica.mp3"
+  mensagemDeVoz: "", // Exemplo: "assets/minha-voz.mp3"
+  premioRaspadinha: "um encontro surpresa comigo ♥",
   mensagemPrincipal:
     "Hoje celebramos você, nós e todas as histórias lindas que ainda vamos viver.",
   mensagemAniversario:
@@ -67,6 +69,7 @@ function fillPersonalDetails() {
 
   $("[data-hero-message]").textContent = CONFIG.mensagemPrincipal;
   $("[data-birthday-message]").textContent = CONFIG.mensagemAniversario;
+  $("[data-scratch-prize]").textContent = CONFIG.premioRaspadinha;
 
   const specialDate = new Date(CONFIG.dataEspecial);
   $("[data-special-day]").textContent = String(specialDate.getDate()).padStart(2, "0");
@@ -75,6 +78,11 @@ function fillPersonalDetails() {
   });
   $("[data-letter-date]").textContent = specialDate.toLocaleDateString("pt-BR", {
     day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+  $("[data-universe-date]").textContent = specialDate.toLocaleDateString("pt-BR", {
+    day: "2-digit",
     month: "long",
     year: "numeric",
   });
@@ -178,6 +186,139 @@ function setupRetrospective() {
   });
 
   scheduleNext();
+}
+
+function setupScratchCard() {
+  const canvas = $("#scratch-canvas");
+  const area = $("#scratch-area");
+  const context = canvas.getContext("2d", { willReadFrequently: true });
+  let drawing = false;
+  let checkedAt = 0;
+
+  const paintCover = () => {
+    const ratio = window.devicePixelRatio || 1;
+    const rect = area.getBoundingClientRect();
+    canvas.width = rect.width * ratio;
+    canvas.height = rect.height * ratio;
+    context.scale(ratio, ratio);
+
+    const gradient = context.createLinearGradient(0, 0, rect.width, rect.height);
+    gradient.addColorStop(0, "#d7b9ad");
+    gradient.addColorStop(0.5, "#f1ded1");
+    gradient.addColorStop(1, "#c89e9f");
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, rect.width, rect.height);
+
+    context.fillStyle = "#6e4350";
+    context.textAlign = "center";
+    context.font = "600 13px DM Sans, sans-serif";
+    context.fillText("RASPE AQUI  ♥", rect.width / 2, rect.height / 2);
+  };
+
+  const scratch = (event) => {
+    if (!drawing) return;
+    const rect = canvas.getBoundingClientRect();
+    const pointer = event.touches?.[0] || event;
+    const x = pointer.clientX - rect.left;
+    const y = pointer.clientY - rect.top;
+    context.globalCompositeOperation = "destination-out";
+    context.beginPath();
+    context.arc(x, y, 24, 0, Math.PI * 2);
+    context.fill();
+
+    checkedAt += 1;
+    if (checkedAt % 12 === 0) {
+      const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data;
+      let transparent = 0;
+      for (let index = 3; index < pixels.length; index += 80) {
+        if (pixels[index] < 20) transparent += 1;
+      }
+      if (transparent / (pixels.length / 80) > 0.42) {
+        canvas.classList.add("is-revealed");
+        createHearts(18);
+      }
+    }
+  };
+
+  const start = (event) => {
+    drawing = true;
+    scratch(event);
+  };
+  const stop = () => {
+    drawing = false;
+  };
+
+  canvas.addEventListener("pointerdown", start);
+  canvas.addEventListener("pointermove", scratch);
+  window.addEventListener("pointerup", stop);
+  paintCover();
+}
+
+function setupVoiceMessage() {
+  const audio = $("#voice-message");
+  const button = $("#voice-play");
+  const icon = $("#voice-icon");
+  const card = $(".voice-card");
+  const time = $("#voice-time");
+
+  if (!CONFIG.mensagemDeVoz) {
+    button.disabled = true;
+    $("#voice-hint").textContent = "Configure mensagemDeVoz no script.js";
+    return;
+  }
+
+  audio.src = CONFIG.mensagemDeVoz;
+  $("#voice-hint").textContent = "Um áudio gravado especialmente para você";
+
+  const formatTime = (seconds) => {
+    if (!Number.isFinite(seconds)) return "00:00";
+    return `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(Math.floor(seconds % 60)).padStart(2, "0")}`;
+  };
+
+  button.addEventListener("click", () => {
+    if (audio.paused) audio.play();
+    else audio.pause();
+  });
+  audio.addEventListener("play", () => {
+    icon.textContent = "Ⅱ";
+    card.classList.add("is-playing");
+  });
+  audio.addEventListener("pause", () => {
+    icon.textContent = "▶";
+    card.classList.remove("is-playing");
+  });
+  audio.addEventListener("timeupdate", () => {
+    time.textContent = formatTime(audio.currentTime);
+  });
+}
+
+function setupStarField() {
+  const canvas = $("#star-canvas");
+  const context = canvas.getContext("2d");
+  const stars = Array.from({ length: 150 }, () => ({
+    x: Math.random(),
+    y: Math.random(),
+    radius: 0.25 + Math.random() * 1.2,
+    alpha: 0.2 + Math.random() * 0.7,
+  }));
+
+  const draw = () => {
+    const ratio = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * ratio;
+    canvas.height = rect.height * ratio;
+    context.scale(ratio, ratio);
+    context.clearRect(0, 0, rect.width, rect.height);
+    stars.forEach((star) => {
+      context.beginPath();
+      context.fillStyle = `rgba(255, 244, 225, ${star.alpha})`;
+      context.arc(star.x * rect.width, star.y * rect.height, star.radius, 0, Math.PI * 2);
+      context.fill();
+    });
+  };
+
+  draw();
+  window.addEventListener("resize", draw);
 }
 
 function buildReasons() {
@@ -324,3 +465,6 @@ const playMusic = setupMusic();
 setupRevealAnimations();
 setupInteractions(playMusic);
 setupRetrospective();
+setupScratchCard();
+setupVoiceMessage();
+setupStarField();

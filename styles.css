@@ -839,6 +839,248 @@ main.is-visible {
   transform: rotateY(180deg);
 }
 
+.surprises {
+  background: #f5e7da;
+}
+
+.surprises__grid {
+  display: grid;
+  max-width: 960px;
+  margin: auto;
+  gap: 22px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.scratch-card,
+.voice-card {
+  padding: clamp(24px, 4vw, 38px);
+  border: 1px solid #dec8bb;
+  border-radius: 5px;
+  background: rgba(255, 248, 239, 0.75);
+  box-shadow: 0 18px 50px rgba(79, 39, 49, 0.08);
+}
+
+.interactive-card__heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.interactive-card__heading > span {
+  color: var(--rose);
+  font: 400 2.3rem var(--serif);
+}
+
+.interactive-card__heading small {
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.interactive-card__heading h3 {
+  margin: 3px 0 0;
+  font: 400 1.7rem var(--serif);
+}
+
+.scratch-card__area {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  border-radius: 4px;
+  touch-action: none;
+}
+
+.scratch-card__prize {
+  display: grid;
+  height: 100%;
+  padding: 30px;
+  place-content: center;
+  color: var(--cream);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(242, 201, 206, 0.18), transparent 40%),
+    var(--wine);
+  text-align: center;
+}
+
+.scratch-card__prize span {
+  margin-bottom: 10px;
+  color: var(--blush);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.scratch-card__prize strong {
+  font: 400 2rem/1.1 var(--serif);
+}
+
+#scratch-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  transition: opacity 0.6s ease;
+}
+
+#scratch-canvas.is-revealed {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.interactive-card__hint {
+  margin: 14px 0 0;
+  color: #9b8286;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.voice-card__player {
+  display: flex;
+  height: 220px;
+  align-items: center;
+  gap: 18px;
+  padding: 30px;
+  border-radius: 4px;
+  color: var(--cream);
+  background: var(--wine-dark);
+}
+
+.voice-card__player button {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  color: var(--wine-dark);
+  background: var(--blush);
+  cursor: pointer;
+  flex: 0 0 auto;
+  place-items: center;
+}
+
+.voice-card__player button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.voice-card__wave {
+  display: flex;
+  height: 58px;
+  align-items: center;
+  gap: 3px;
+  flex: 1;
+}
+
+.voice-card__wave i {
+  width: 3px;
+  height: calc(10px + var(--wave, 10) * 1px);
+  border-radius: 99px;
+  background: rgba(255, 248, 239, 0.5);
+}
+
+.voice-card__wave i:nth-child(3n) { --wave: 29; }
+.voice-card__wave i:nth-child(4n) { --wave: 19; }
+.voice-card__wave i:nth-child(5n) { --wave: 36; }
+
+.voice-card.is-playing .voice-card__wave i {
+  animation: voice-wave 0.7s ease-in-out infinite alternate;
+}
+
+.voice-card__player > span {
+  color: rgba(255, 248, 239, 0.55);
+  font-size: 0.7rem;
+}
+
+.universe {
+  position: relative;
+  display: grid;
+  min-height: 820px;
+  overflow: hidden;
+  color: var(--cream);
+  background: #100813;
+  place-items: center;
+}
+
+#star-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.universe__content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  text-align: center;
+}
+
+.universe .eyebrow {
+  color: var(--blush);
+}
+
+.universe h2 {
+  margin: 0;
+  font: 400 clamp(2.8rem, 7vw, 5.5rem)/0.98 var(--serif);
+}
+
+.constellation {
+  position: relative;
+  width: min(500px, 82vw);
+  height: 190px;
+  margin: 55px auto 30px;
+}
+
+.constellation span {
+  position: absolute;
+  z-index: 2;
+  top: var(--y);
+  left: var(--x);
+  width: 8px;
+  height: 8px;
+  border: 2px solid white;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 0 14px 4px rgba(242, 201, 206, 0.7);
+  transform: translate(-50%, -50%);
+}
+
+.constellation svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.constellation path {
+  fill: none;
+  stroke: rgba(242, 201, 206, 0.48);
+  stroke-width: 0.35;
+  vector-effect: non-scaling-stroke;
+}
+
+.universe__date {
+  margin: 0;
+  color: var(--blush);
+  font: 400 1.7rem var(--serif);
+}
+
+.universe__content > small {
+  display: block;
+  margin-top: 8px;
+  color: rgba(255, 248, 239, 0.35);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
 .birthday {
   display: grid;
   min-height: 720px;
@@ -1150,6 +1392,10 @@ footer > span {
   to { width: 100%; }
 }
 
+@keyframes voice-wave {
+  to { transform: scaleY(0.35); }
+}
+
 @media (max-width: 720px) {
   .nav {
     padding: 20px;
@@ -1215,6 +1461,10 @@ footer > span {
     grid-template-columns: 1fr 1fr;
   }
 
+  .surprises__grid {
+    grid-template-columns: 1fr;
+  }
+
   .reason-card {
     min-height: 190px;
   }
@@ -1253,6 +1503,11 @@ footer > span {
 
   .reasons__grid {
     grid-template-columns: 1fr;
+  }
+
+  .voice-card__player {
+    padding: 20px;
+    gap: 12px;
   }
 }
 

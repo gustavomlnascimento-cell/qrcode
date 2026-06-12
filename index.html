@@ -131,6 +131,74 @@
         <div class="reasons__grid" id="reasons-grid"></div>
       </section>
 
+      <section class="surprises section" aria-labelledby="surprises-title">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Presentinhos escondidos</p>
+          <h2 id="surprises-title">Ainda tem mais...</h2>
+          <p>Algumas surpresas só aparecem para quem toca, escuta e sente.</p>
+        </div>
+        <div class="surprises__grid">
+          <article class="scratch-card reveal">
+            <div class="interactive-card__heading">
+              <span>01</span>
+              <div>
+                <small>Raspadinha do amor</small>
+                <h3>Raspe para revelar</h3>
+              </div>
+            </div>
+            <div class="scratch-card__area" id="scratch-area">
+              <div class="scratch-card__prize">
+                <span>Seu prêmio é</span>
+                <strong data-scratch-prize>um encontro surpresa comigo ♥</strong>
+              </div>
+              <canvas id="scratch-canvas" aria-label="Raspe esta área para revelar uma surpresa"></canvas>
+            </div>
+            <p class="interactive-card__hint">Passe o dedo sobre o cartão</p>
+          </article>
+
+          <article class="voice-card reveal">
+            <div class="interactive-card__heading">
+              <span>02</span>
+              <div>
+                <small>Um recado só meu</small>
+                <h3>Escute minha voz</h3>
+              </div>
+            </div>
+            <div class="voice-card__player">
+              <button id="voice-play" type="button" aria-label="Reproduzir mensagem de voz">
+                <span id="voice-icon">▶</span>
+              </button>
+              <div class="voice-card__wave" aria-hidden="true">
+                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              </div>
+              <span id="voice-time">00:00</span>
+            </div>
+            <p class="interactive-card__hint" id="voice-hint">Adicione uma gravação especial</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="universe section" aria-labelledby="universe-title">
+        <canvas id="star-canvas" aria-hidden="true"></canvas>
+        <div class="universe__content reveal">
+          <p class="eyebrow">O nosso universo</p>
+          <h2 id="universe-title">O céu pode ter milhões de estrelas.<br />Eu escolheria você.</h2>
+          <div class="constellation" aria-hidden="true">
+            <span style="--x: 7%; --y: 65%"></span>
+            <span style="--x: 28%; --y: 32%"></span>
+            <span style="--x: 50%; --y: 52%"></span>
+            <span style="--x: 72%; --y: 20%"></span>
+            <span style="--x: 92%; --y: 58%"></span>
+            <svg viewBox="0 0 100 70" preserveAspectRatio="none">
+              <path d="M7 45 L28 22 L50 36 L72 14 L92 41" />
+            </svg>
+          </div>
+          <p class="universe__date" data-universe-date></p>
+          <small>O céu da nossa data especial</small>
+        </div>
+      </section>
+
       <section class="birthday section" aria-labelledby="birthday-title">
         <div class="birthday__stars" aria-hidden="true">✦　·　✧　·　✦</div>
         <div class="birthday__content reveal">
@@ -186,6 +254,7 @@
     </div>
 
     <audio id="background-music" loop preload="none"></audio>
+    <audio id="voice-message" preload="metadata"></audio>
     <div id="heart-container" aria-hidden="true"></div>
   </body>
 </html>

@@ -22,6 +22,10 @@ musica: "assets/nossa-musica.mp3",
 
 Sem música configurada, o botão de áudio fica oculto.
 
+Para adicionar uma mensagem de voz, coloque a gravação na pasta `assets` e
+altere `mensagemDeVoz` no mesmo bloco. O prêmio da raspadinha também pode ser
+editado em `premioRaspadinha`.
+
 ## Testar no computador
 
 Execute:
