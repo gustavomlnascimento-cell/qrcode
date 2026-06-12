@@ -1,9 +1,19 @@
 // PERSONALIZE AQUI: este é o único bloco que você precisa editar.
 const CONFIG = {
-  nomeDela: "Ela",
+  nomeDela: "Núbia",
   seuNome: "Gustavo",
-  usuarioChat: "@gustavo",
-  fotoPerfilChat: "", // Exemplo: "assets/perfil.jpg"
+  pessoas: {
+    gustavo: {
+      nome: "Gustavo",
+      usuario: "@gustavo",
+      foto: "media/gustavofotodeperfil.jpg",
+    },
+    nubia: {
+      nome: "Núbia",
+      usuario: "@nubia",
+      foto: "media/nubiafotodeperfil.jpg",
+    },
+  },
   opcoesRoleta: [
     "Jantar romântico",
     "Noite de filmes",
@@ -13,10 +23,15 @@ const CONFIG = {
     "Muitos beijos",
   ],
   roteiroChat: [
-    { tipo: "mensagem", lado: "recebida", texto: "oii" },
-    { tipo: "mensagem", lado: "enviada", texto: "oi, aconteceu alguma coisa? 👀" },
-    { tipo: "mensagem", lado: "recebida", texto: "tenho uma coisa pra te mostrar" },
-    { tipo: "mensagem", lado: "recebida", texto: "mas antes quero ver se você consegue passar por um desafio kkk" },
+    {
+      tipo: "mensagem",
+      autor: "gustavo",
+      texto: "happy birthday crush, to terminando o script 👨🏽‍💻\n\nvou caprichar p compensar o atraso haha",
+    },
+    { tipo: "mensagem", autor: "nubia", texto: "kkkkkkkkkkkkkkkk" },
+    { tipo: "mensagem", autor: "nubia", texto: "você me surpreende todos os dias" },
+    { tipo: "mensagem", autor: "gustavo", texto: "então tenho mais uma coisa pra te mostrar 👀" },
+    { tipo: "mensagem", autor: "gustavo", texto: "mas antes quero ver se você consegue passar por um desafio kkk" },
     {
       tipo: "jogo",
       jogo: "memoria",
@@ -24,8 +39,8 @@ const CONFIG = {
       titulo: "Encontre nossos pares",
       icone: "✦",
     },
-    { tipo: "mensagem", lado: "recebida", texto: "Eu sabia que você conseguiria ❤️" },
-    { tipo: "mensagem", lado: "recebida", texto: "Mas ainda não acabou... deixei o destino escolher nosso próximo momento." },
+    { tipo: "mensagem", autor: "gustavo", texto: "eu sabia que você conseguiria ❤️" },
+    { tipo: "mensagem", autor: "gustavo", texto: "mas ainda não acabou... deixei o destino escolher nosso próximo momento" },
     {
       tipo: "jogo",
       jogo: "roleta",
@@ -33,18 +48,18 @@ const CONFIG = {
       titulo: "Deixe o destino escolher",
       icone: "↻",
     },
-    { tipo: "mensagem", lado: "recebida", texto: "Gostei da escolha 😏 Já pode cobrar seu prêmio." },
-    { tipo: "mensagem", lado: "recebida", texto: "agora deixa eu te mostrar por que preparei tudo isso" },
+    { tipo: "mensagem", autor: "gustavo", texto: "gostei da escolha 😏 já pode cobrar seu prêmio" },
+    { tipo: "mensagem", autor: "gustavo", texto: "agora deixa eu te mostrar por que preparei tudo isso" },
     { tipo: "conteudo", conteudo: "contador" },
-    { tipo: "mensagem", lado: "recebida", texto: "e pensar que tudo começou assim..." },
+    { tipo: "mensagem", autor: "gustavo", texto: "e pensar que tudo começou assim..." },
     { tipo: "conteudo", conteudo: "historia" },
-    { tipo: "mensagem", lado: "recebida", texto: "separei algumas memórias que eu nunca quero esquecer" },
+    { tipo: "mensagem", autor: "gustavo", texto: "separei algumas memórias que eu nunca quero esquecer" },
     { tipo: "conteudo", conteudo: "fotos" },
-    { tipo: "mensagem", lado: "recebida", texto: "e ainda faltam muitos motivos pra dizer o quanto você é especial" },
+    { tipo: "mensagem", autor: "gustavo", texto: "e ainda faltam muitos motivos pra dizer o quanto você é especial" },
     { tipo: "conteudo", conteudo: "motivos" },
-    { tipo: "mensagem", lado: "recebida", texto: "feliz aniversário e feliz dia dos namorados ❤️" },
+    { tipo: "mensagem", autor: "gustavo", texto: "feliz aniversário e feliz dia dos namorados ❤️" },
     { tipo: "conteudo", conteudo: "aniversario" },
-    { tipo: "mensagem", lado: "recebida", texto: "por último, escrevi uma coisa que queria que você lesse com calma" },
+    { tipo: "mensagem", autor: "gustavo", texto: "por último, escrevi uma coisa que queria que você lesse com calma" },
     { tipo: "conteudo", conteudo: "carta" },
   ],
   inicioRelacionamento: "2023-06-12T20:00:00",
@@ -85,11 +100,11 @@ const CONFIG = {
     },
   ],
   fotos: [
-    { arquivo: "assets/foto-1.jpg", legenda: "Meu lugar favorito é com você" },
-    { arquivo: "assets/foto-2.jpg", legenda: "Um dia para guardar" },
-    { arquivo: "assets/foto-3.jpg", legenda: "Seu sorriso" },
-    { arquivo: "assets/foto-4.jpg", legenda: "Nós dois" },
-    { arquivo: "assets/foto-5.jpg", legenda: "Mais uma memória bonita" },
+    { arquivo: "media/IMG-20260612-WA0007.jpg", legenda: "Nossas conversas" },
+    { arquivo: "media/IMG-20260612-WA0008.jpg", legenda: "O começo de tudo" },
+    { arquivo: "media/IMG-20260612-WA0011.jpg", legenda: "Nossos planos" },
+    { arquivo: "media/IMG-20260612-WA0013.jpg", legenda: "Você sempre me faz rir" },
+    { arquivo: "media/IMG-20260612-WA0015.jpg", legenda: "Mais uma memória nossa" },
   ],
   motivos: [
     "Seu sorriso ilumina qualquer dia",
@@ -112,23 +127,7 @@ function fillPersonalDetails() {
     element.textContent = CONFIG.seuNome;
   });
 
-  $("#chat-profile-name").textContent = CONFIG.seuNome;
-  $("#chat-profile-user").textContent = CONFIG.usuarioChat;
-  $("#chat-avatar-initials").textContent = CONFIG.seuNome
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((part) => part[0])
-    .join("")
-    .toUpperCase();
-
-  if (CONFIG.fotoPerfilChat) {
-    const avatar = $("#chat-avatar-image");
-    avatar.src = CONFIG.fotoPerfilChat;
-    avatar.hidden = false;
-    avatar.addEventListener("error", () => {
-      avatar.hidden = true;
-    });
-  }
+  setChatPerspective("gustavo", false);
 
   $("[data-hero-message]").textContent = CONFIG.mensagemPrincipal;
   $("[data-birthday-message]").textContent = CONFIG.mensagemAniversario;
@@ -152,6 +151,42 @@ function fillPersonalDetails() {
 
   $("#letter-copy").innerHTML = CONFIG.carta.map((paragraph) => `<p>${paragraph}</p>`).join("");
   document.title = `Para ${CONFIG.nomeDela} ♥`;
+}
+
+function setChatPerspective(viewer, animate = true) {
+  const otherPerson = viewer === "gustavo" ? CONFIG.pessoas.nubia : CONFIG.pessoas.gustavo;
+  const header = $(".chat-header");
+  const avatar = $("#chat-avatar-image");
+
+  if (animate) header.classList.add("is-switching");
+
+  window.setTimeout(
+    () => {
+      $("#chat-profile-name").textContent = otherPerson.nome;
+      $("#chat-profile-user").textContent = otherPerson.usuario;
+      $("#chat-avatar-initials").textContent = otherPerson.nome
+        .split(/\s+/)
+        .slice(0, 2)
+        .map((part) => part[0])
+        .join("")
+        .toUpperCase();
+      avatar.src = otherPerson.foto;
+      avatar.hidden = false;
+      avatar.onerror = () => {
+        avatar.hidden = true;
+      };
+
+      $$(".chat-message[data-author]").forEach((bubble) => {
+        const sent = bubble.dataset.author === viewer;
+        bubble.classList.toggle("chat-message--sent", sent);
+        bubble.classList.toggle("chat-message--received", !sent);
+      });
+
+      header.dataset.viewer = viewer;
+      header.classList.remove("is-switching");
+    },
+    animate ? 220 : 0,
+  );
 }
 
 function buildTimeline() {
@@ -445,8 +480,37 @@ function setupChatIntro() {
   const actionCard = $("#chat-gift");
   let currentAction = null;
   let stepIndex = 0;
+  let currentViewer = "gustavo";
 
   const wait = (duration) => new Promise((resolve) => window.setTimeout(resolve, duration));
+
+  const switchPerspective = async (viewer) => {
+    if (currentViewer === viewer) return;
+    currentViewer = viewer;
+    setChatPerspective(viewer);
+    await wait(520);
+  };
+
+  const typeInComposer = async (text) => {
+    const composer = $(".chat-composer");
+    const composerText = $("#chat-composer-text");
+    const action = $("#chat-composer-action");
+    composer.classList.add("is-typing");
+    action.innerHTML =
+      '<svg viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>';
+    composerText.textContent = "";
+
+    for (let index = 0; index < text.length; index += 1) {
+      composerText.textContent += text[index];
+      await wait(text[index] === "\n" ? 110 : 20 + Math.random() * 22);
+    }
+
+    await wait(420);
+    composer.classList.remove("is-typing");
+    composerText.textContent = "Mensagem...";
+    action.innerHTML =
+      '<svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg>';
+  };
 
   const showAction = (step) => {
     currentAction = step;
@@ -463,23 +527,25 @@ function setupChatIntro() {
       const step = CONFIG.roteiroChat[stepIndex];
       stepIndex += 1;
       if (step.tipo === "jogo") {
+        await switchPerspective("nubia");
         showAction(step);
         return;
       }
       if (step.tipo === "conteudo") {
+        await switchPerspective("nubia");
         appendChatContent(step.conteudo, messages);
         messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
         await wait(900);
         continue;
       }
 
-      typing.hidden = false;
-      await wait(Math.min(1500, 650 + step.texto.length * 18));
+      await switchPerspective(step.autor);
       typing.hidden = true;
+      await typeInComposer(step.texto);
 
       const bubble = document.createElement("div");
-      const side = step.lado === "enviada" ? "sent" : "received";
-      bubble.className = `chat-message chat-message--${side}`;
+      bubble.className = "chat-message chat-message--sent";
+      bubble.dataset.author = step.autor;
       bubble.textContent = step.texto;
       messages.appendChild(bubble);
       messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
@@ -491,6 +557,7 @@ function setupChatIntro() {
     if (result) {
       const bubble = document.createElement("div");
       bubble.className = "chat-message chat-message--received";
+      bubble.dataset.author = "gustavo";
       bubble.textContent =
         result === "__skip__"
           ? "sem problema, vamos continuar por aqui 🙂"
