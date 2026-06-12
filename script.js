@@ -54,10 +54,11 @@ const CONFIG = {
       texto:
         "presentinho dos dias dos namorados (vulgo niver), posso te entregar? 🍫🌹\n\ncartaozinho de mensagem vai ta no qrcode customizado..\n\n(engenharia de software) haha",
       rapido: true,
+      pausaDepois: 5000,
     },
-    { tipo: "mensagem", autor: "nubia", texto: "fico até com medo......", rapido: true },
-    { tipo: "mensagem", autor: "nubia", texto: "KKKKKKKKKKK", reacao: "😂", rapido: true },
-    { tipo: "mensagem", autor: "nubia", texto: "pode entregar", reacao: "💗", rapido: true },
+    { tipo: "mensagem", autor: "nubia", texto: "fico até com medo......", rapido: true, pausaDepois: 2200 },
+    { tipo: "mensagem", autor: "nubia", texto: "KKKKKKKKKKK", reacao: "😂", rapido: true, pausaDepois: 1800 },
+    { tipo: "mensagem", autor: "nubia", texto: "pode entregar", reacao: "💗", rapido: true, pausaDepois: 3500 },
     { tipo: "data", texto: "Hoje" },
     {
       tipo: "mensagem",
@@ -682,7 +683,7 @@ function setupChatIntro() {
         bubble.appendChild(reaction);
       }
       messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
-      await wait(step.rapido ? 300 : 480);
+      await wait(step.pausaDepois ?? (step.rapido ? 300 : 480));
     }
   };
 
