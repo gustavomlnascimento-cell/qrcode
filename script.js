@@ -4,6 +4,14 @@ const CONFIG = {
   seuNome: "Seu Amor",
   usuarioChat: "@seuamor",
   fotoPerfilChat: "", // Exemplo: "assets/perfil.jpg"
+  opcoesRoleta: [
+    "Jantar romântico",
+    "Noite de filmes",
+    "Passeio surpresa",
+    "Vale massagem",
+    "Escolha o date",
+    "Muitos beijos",
+  ],
   roteiroChat: [
     { tipo: "mensagem", lado: "recebida", texto: "Oi, meu amor..." },
     { tipo: "mensagem", lado: "enviada", texto: "Oi amor, o que foi? 👀" },
@@ -17,6 +25,15 @@ const CONFIG = {
       icone: "✦",
     },
     { tipo: "mensagem", lado: "recebida", texto: "Eu sabia que você conseguiria ❤️" },
+    { tipo: "mensagem", lado: "recebida", texto: "Mas ainda não acabou... deixei o destino escolher nosso próximo momento." },
+    {
+      tipo: "jogo",
+      jogo: "roleta",
+      rotulo: "Roleta surpresa",
+      titulo: "Deixe o destino escolher",
+      icone: "↻",
+    },
+    { tipo: "mensagem", lado: "recebida", texto: "Gostei da escolha 😏 Já pode cobrar seu prêmio." },
     { tipo: "mensagem", lado: "recebida", texto: "Fiz cada pedacinho pensando em você." },
     { tipo: "mensagem", lado: "recebida", texto: "Agora sim... está pronta para abrir?" },
     {
@@ -473,7 +490,14 @@ function setupChatIntro() {
     }
   };
 
-  const continueAfterAction = () => {
+  const continueAfterAction = (result) => {
+    if (result) {
+      const bubble = document.createElement("div");
+      bubble.className = "chat-message chat-message--received";
+      bubble.textContent = `A roleta escolheu: ${result} 🎉`;
+      messages.appendChild(bubble);
+      messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
+    }
     currentAction = null;
     actionCard.hidden = true;
     playConversation();
@@ -486,7 +510,7 @@ function setupChatIntro() {
     }
     if (currentAction?.tipo === "jogo") {
       actionCard.hidden = true;
-      const games = { memoria: setupMemoryGame };
+      const games = { memoria: setupMemoryGame, roleta: setupRouletteGame };
       games[currentAction.jogo]?.(continueAfterAction);
     }
   });
@@ -511,6 +535,7 @@ function setupChatIntro() {
 function setupMemoryGame(onComplete) {
   const game = $("#chat-game");
   const board = $("#couple-memory");
+  const roulette = $("#surprise-roulette");
   const success = $("#game-success");
   const symbols = ["♥", "✦", "🎁"];
   const cards = [...symbols, ...symbols].sort(() => Math.random() - 0.5);
@@ -532,6 +557,14 @@ function setupMemoryGame(onComplete) {
     .join("");
 
   success.hidden = true;
+  board.hidden = false;
+  roulette.hidden = true;
+  $("#game-step").textContent = "Desafio 01";
+  $("#game-title").textContent = "Encontre os pares";
+  $(".chat-game__intro p").textContent = "Um joguinho para aquecer o coração";
+  $(".chat-game__intro small").textContent = "Toque nas cartas e combine todos os símbolos.";
+  $("#game-success-title").textContent = "Você conseguiu!";
+  $("#game-success-text").textContent = "Mais uma memória desbloqueada.";
   $("#game-score").textContent = "0 de 3 pares";
   game.hidden = false;
 
@@ -574,6 +607,70 @@ function setupMemoryGame(onComplete) {
   $("#game-return").onclick = () => {
     game.hidden = true;
     onComplete();
+  };
+}
+
+function setupRouletteGame(onComplete) {
+  const game = $("#chat-game");
+  const board = $("#couple-memory");
+  const roulette = $("#surprise-roulette");
+  const wheel = $("#roulette-wheel");
+  const spinButton = $("#roulette-spin");
+  const success = $("#game-success");
+  const options = CONFIG.opcoesRoleta;
+  const colors = ["#733df0", "#a832e0", "#d62caf", "#f13e7f", "#fb6b54", "#a93bd0"];
+  let result = "";
+  let spinning = false;
+
+  wheel.innerHTML = options
+    .map(
+      (option, index) => `
+        <span class="roulette-label" style="--index:${index}; --total:${options.length}">
+          <b>${option}</b>
+        </span>
+      `,
+    )
+    .join("");
+  wheel.style.background = `conic-gradient(${options
+    .map((_, index) => `${colors[index % colors.length]} ${index * (360 / options.length)}deg ${(index + 1) * (360 / options.length)}deg`)
+    .join(",")})`;
+  wheel.style.transform = "rotate(0deg)";
+
+  board.hidden = true;
+  roulette.hidden = false;
+  success.hidden = true;
+  game.hidden = false;
+  $("#game-step").textContent = "Desafio 02";
+  $("#game-score").textContent = "1 giro disponível";
+  $("#game-title").textContent = "Roleta surpresa";
+  $(".chat-game__intro p").textContent = "O destino escolhe nosso próximo momento";
+  $(".chat-game__intro small").textContent = "Toque no botão e descubra o seu prêmio.";
+  spinButton.disabled = false;
+  spinButton.textContent = "Girar a roleta";
+
+  spinButton.onclick = () => {
+    if (spinning) return;
+    spinning = true;
+    spinButton.disabled = true;
+    spinButton.textContent = "Girando...";
+
+    const resultIndex = Math.floor(Math.random() * options.length);
+    const slice = 360 / options.length;
+    const finalRotation = 360 * 6 + (360 - (resultIndex * slice + slice / 2));
+    result = options[resultIndex];
+    wheel.style.transform = `rotate(${finalRotation}deg)`;
+
+    window.setTimeout(() => {
+      $("#game-success-title").textContent = result;
+      $("#game-success-text").textContent = "A roleta decidiu. Esse prêmio agora é seu!";
+      success.hidden = false;
+      createHearts(20);
+    }, 4300);
+  };
+
+  $("#game-return").onclick = () => {
+    game.hidden = true;
+    onComplete(result);
   };
 }
 

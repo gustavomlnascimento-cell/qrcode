@@ -84,10 +84,16 @@
                   <small>Toque nas cartas e combine todos os símbolos.</small>
                 </div>
                 <div class="memory-game" id="couple-memory" aria-label="Jogo da memória"></div>
+                <div class="roulette-game" id="surprise-roulette" hidden>
+                  <div class="roulette-pointer" aria-hidden="true"></div>
+                  <div class="roulette-wheel" id="roulette-wheel"></div>
+                  <div class="roulette-center" aria-hidden="true">♥</div>
+                  <button id="roulette-spin" type="button">Girar a roleta</button>
+                </div>
                 <div class="chat-game__success" id="game-success" hidden>
                   <span aria-hidden="true">♥</span>
-                  <h3>Você conseguiu!</h3>
-                  <p>Mais uma memória desbloqueada.</p>
+                  <h3 id="game-success-title">Você conseguiu!</h3>
+                  <p id="game-success-text">Mais uma memória desbloqueada.</p>
                   <button id="game-return" type="button">Voltar para a conversa →</button>
                 </div>
               </section>
