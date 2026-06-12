@@ -2,6 +2,14 @@
 const CONFIG = {
   nomeDela: "Meu Amor",
   seuNome: "Seu Amor",
+  usuarioChat: "@seuamor",
+  fotoPerfilChat: "", // Exemplo: "assets/perfil.jpg"
+  mensagensChat: [
+    { lado: "recebida", texto: "Oi, meu amor..." },
+    { lado: "recebida", texto: "Hoje eu queria te entregar algo diferente." },
+    { lado: "recebida", texto: "Fiz cada pedacinho pensando em você." },
+    { lado: "recebida", texto: "Está pronta para abrir?" },
+  ],
   inicioRelacionamento: "2023-06-12T20:00:00",
   dataEspecial: "2026-06-12T00:00:00",
   musica: "", // Exemplo: "assets/nossa-musica.mp3"
@@ -66,6 +74,24 @@ function fillPersonalDetails() {
   $$("[data-signature]").forEach((element) => {
     element.textContent = CONFIG.seuNome;
   });
+
+  $("#chat-profile-name").textContent = CONFIG.seuNome;
+  $("#chat-profile-user").textContent = CONFIG.usuarioChat;
+  $("#chat-avatar-initials").textContent = CONFIG.seuNome
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
+
+  if (CONFIG.fotoPerfilChat) {
+    const avatar = $("#chat-avatar-image");
+    avatar.src = CONFIG.fotoPerfilChat;
+    avatar.hidden = false;
+    avatar.addEventListener("error", () => {
+      avatar.hidden = true;
+    });
+  }
 
   $("[data-hero-message]").textContent = CONFIG.mensagemPrincipal;
   $("[data-birthday-message]").textContent = CONFIG.mensagemAniversario;
@@ -376,6 +402,51 @@ function createHearts(amount = 18) {
   }
 }
 
+function setupChatIntro() {
+  const intro = $("#chat-intro");
+  const messages = $("#chat-messages");
+  const typing = $("#chat-typing");
+  const gift = $("#chat-gift");
+  let stopped = false;
+
+  const wait = (duration) => new Promise((resolve) => window.setTimeout(resolve, duration));
+
+  const finishChat = () => {
+    if (stopped) return;
+    stopped = true;
+    typing.hidden = true;
+    intro.classList.add("is-finished");
+    intro.setAttribute("aria-hidden", "true");
+  };
+
+  const playConversation = async () => {
+    await wait(650);
+
+    for (const message of CONFIG.mensagensChat) {
+      if (stopped) return;
+      typing.hidden = false;
+      await wait(Math.min(1500, 650 + message.texto.length * 18));
+      if (stopped) return;
+      typing.hidden = true;
+
+      const bubble = document.createElement("div");
+      const side = message.lado === "enviada" ? "sent" : "received";
+      bubble.className = `chat-message chat-message--${side}`;
+      bubble.textContent = message.texto;
+      messages.appendChild(bubble);
+      messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
+      await wait(480);
+    }
+
+    if (stopped) return;
+    gift.hidden = false;
+  };
+
+  gift.addEventListener("click", finishChat);
+  $("#chat-skip").addEventListener("click", finishChat);
+  playConversation();
+}
+
 function setupMusic() {
   const audio = $("#background-music");
   const button = $("#sound-toggle");
@@ -455,6 +526,7 @@ function setupInteractions(playMusic) {
 }
 
 fillPersonalDetails();
+setupChatIntro();
 buildTimeline();
 buildGallery();
 buildRetrospective();

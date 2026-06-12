@@ -8,6 +8,7 @@ direto no celular por meio de um QR code.
 1. Abra `script.js`.
 2. Edite o objeto `CONFIG` no começo do arquivo:
    - nomes;
+   - usuário, foto e mensagens da conversa inicial;
    - data do início do relacionamento;
    - textos da carta e da história;
    - motivos;
