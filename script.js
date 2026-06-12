@@ -896,19 +896,21 @@ function setupMemoryGame(onComplete) {
   const board = $("#couple-memory");
   const roulette = $("#surprise-roulette");
   const success = $("#game-success");
-  const symbols = ["♥", "✦", "🎁"];
-  const cards = [...symbols, ...symbols].sort(() => Math.random() - 0.5);
+  const photos = ["media/foto1.jpg", "media/foto2.jpg", "media/foto3.jpg"];
+  const cards = [...photos, ...photos].sort(() => Math.random() - 0.5);
   let openCards = [];
   let matches = 0;
   let locked = false;
 
   board.innerHTML = cards
     .map(
-      (symbol, index) => `
-        <button class="memory-card" type="button" data-symbol="${symbol}" aria-label="Carta ${index + 1}">
+      (photo, index) => `
+        <button class="memory-card" type="button" data-photo="${photo}" aria-label="Carta ${index + 1}">
           <span class="memory-card__inner">
             <span class="memory-card__face memory-card__back">?</span>
-            <span class="memory-card__face memory-card__front">${symbol}</span>
+            <span class="memory-card__face memory-card__front">
+              <img src="${photo}" alt="Uma memória nossa">
+            </span>
           </span>
         </button>
       `,
@@ -922,7 +924,7 @@ function setupMemoryGame(onComplete) {
   $("#game-title").textContent = "Encontre os pares";
   $(".chat-game__intro > span").textContent = "♥";
   $(".chat-game__intro p").textContent = "Um joguinho para aquecer o coração";
-  $(".chat-game__intro small").textContent = "Toque nas cartas e combine todos os símbolos.";
+  $(".chat-game__intro small").textContent = "Toque nas cartas e encontre as fotos iguais.";
   $("#game-success-title").textContent = "Você conseguiu!";
   $("#game-success-text").textContent = "Mais uma memória desbloqueada.";
   $("#game-score").textContent = "0 de 3 pares";
@@ -942,7 +944,7 @@ function setupMemoryGame(onComplete) {
 
       locked = true;
       const [first, second] = openCards;
-      const matched = first.dataset.symbol === second.dataset.symbol;
+      const matched = first.dataset.photo === second.dataset.photo;
 
       window.setTimeout(() => {
         if (matched) {
@@ -958,7 +960,7 @@ function setupMemoryGame(onComplete) {
         openCards = [];
         locked = false;
 
-        if (matches === symbols.length) {
+        if (matches === photos.length) {
           window.setTimeout(() => {
             success.hidden = false;
             createHearts(16);
