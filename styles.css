@@ -55,10 +55,11 @@ button {
   inset: 0;
   display: grid;
   overflow: hidden;
-  color: #f5f5f7;
+  color: #17151b;
   background:
-    radial-gradient(circle at 28% 50%, rgba(177, 77, 119, 0.2), transparent 25%),
-    linear-gradient(135deg, #f8f3f8, #eee7f4);
+    radial-gradient(circle at 24% 50%, rgba(255, 48, 133, 0.12), transparent 27%),
+    radial-gradient(circle at 80% 22%, rgba(129, 52, 255, 0.1), transparent 25%),
+    linear-gradient(135deg, #fff8fc, #f3f0ff);
   place-items: center;
   transition: opacity 0.65s ease, visibility 0.65s ease, transform 0.65s ease;
 }
@@ -95,12 +96,12 @@ button {
   width: 382px;
   height: 746px;
   padding: 10px;
-  border: 2px solid #c9c6cf;
+  border: 2px solid #ff2e9a;
   border-radius: 58px;
-  background: linear-gradient(145deg, #dad8df, #86848d 45%, #e5e3e8 72%, #8c8991);
+  background: linear-gradient(155deg, #ff2a8a, #8a3ffc 42%, #ff6a39 78%, #ff2c8f);
   box-shadow:
-    0 42px 75px rgba(69, 45, 78, 0.28),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+    0 42px 75px rgba(98, 49, 131, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.75);
 }
 
 .chat-phone {
@@ -109,13 +110,11 @@ button {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  border: 2px solid #08080a;
+  border: 2px solid rgba(255, 255, 255, 0.9);
   border-radius: 48px;
-  background:
-    radial-gradient(circle at 50% 38%, rgba(74, 34, 50, 0.13), transparent 36%),
-    #0d0d10;
+  background: #fff;
   flex-direction: column;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(25, 20, 30, 0.06);
 }
 
 .phone-button {
@@ -123,7 +122,7 @@ button {
   display: block;
   width: 4px;
   border-radius: 3px;
-  background: #7e7b84;
+  background: #b62f8c;
 }
 
 .phone-button--mute {
@@ -157,7 +156,7 @@ button {
   align-items: center;
   justify-content: space-between;
   padding: 7px 21px 0;
-  color: white;
+  color: #111;
   font-size: 0.66rem;
   font-weight: 700;
 }
@@ -183,7 +182,7 @@ button {
   display: block;
   width: 2px;
   height: 5px;
-  background: white;
+  background: #111;
 }
 
 .phone-signals i:nth-child(2) {
@@ -199,7 +198,7 @@ button {
   width: 13px;
   height: 7px;
   margin-left: 4px;
-  border: 1px solid white;
+  border: 1px solid #111;
   border-radius: 2px;
 }
 
@@ -211,14 +210,14 @@ button {
   width: 115px;
   height: 4px;
   border-radius: 5px;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(20, 18, 23, 0.8);
   transform: translateX(-50%);
 }
 
 .phone-heart {
   position: absolute;
   z-index: 1;
-  color: #c47ac1;
+  color: #f73d9d;
   font-size: 6rem;
   opacity: 0.68;
   filter: drop-shadow(0 13px 14px rgba(87, 45, 103, 0.17));
@@ -234,7 +233,7 @@ button {
 .phone-heart--two {
   top: 110px;
   right: -65px;
-  color: #a868df;
+  color: #8747ed;
   transform: rotate(14deg);
   animation-delay: -1.4s;
 }
@@ -242,7 +241,7 @@ button {
 .phone-heart--three {
   right: -48px;
   bottom: 95px;
-  color: #d990c8;
+  color: #ff814f;
   font-size: 4.5rem;
   transform: rotate(-8deg);
   animation-delay: -2.5s;
@@ -257,16 +256,16 @@ button {
   width: 66px;
   height: 66px;
   margin-bottom: 28px;
-  border: 1px solid rgba(118, 31, 58, 0.24);
+  border: 1px solid rgba(208, 43, 151, 0.25);
   border-radius: 50%;
-  color: var(--wine);
+  color: #c527a3;
   font-size: 1.2rem;
   place-items: center;
 }
 
 .chat-presentation p {
   margin: 0;
-  color: #9a7e91;
+  color: #9d7598;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -275,7 +274,7 @@ button {
 
 .chat-presentation h1 {
   margin: 10px 0 18px;
-  color: var(--wine-dark);
+  color: #35132f;
   font: 400 clamp(3.6rem, 6vw, 6.4rem)/0.9 var(--serif);
 }
 
@@ -295,10 +294,10 @@ button {
   border: 0;
   border-radius: 99px;
   color: white;
-  background: var(--wine);
+  background: linear-gradient(100deg, #8134f5, #d529b6 55%, #ff3c78);
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 12px 28px rgba(118, 31, 58, 0.22);
+  box-shadow: 0 12px 28px rgba(168, 43, 176, 0.24);
 }
 
 .chat-presentation button b {
@@ -312,14 +311,14 @@ button {
   align-items: center;
   gap: 11px;
   padding: 12px 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(13, 13, 16, 0.92);
+  border-bottom: 1px solid #ededf1;
+  background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(16px);
 }
 
 .chat-header button {
   border: 0;
-  color: white;
+  color: #17151b;
   background: transparent;
 }
 
@@ -333,10 +332,12 @@ button {
   display: grid;
   width: 43px;
   height: 43px;
-  border: 2px solid #a84268;
+  border: 2px solid transparent;
   border-radius: 50%;
   color: white;
-  background: linear-gradient(145deg, #8c3154, #401427);
+  background:
+    linear-gradient(#6c39af, #6c39af) padding-box,
+    linear-gradient(145deg, #ff9a24, #ff276f 45%, #9a2cff) border-box;
   font-size: 0.72rem;
   font-weight: 700;
   place-items: center;
@@ -357,7 +358,7 @@ button {
   bottom: 0;
   width: 10px;
   height: 10px;
-  border: 2px solid #0d0d10;
+  border: 2px solid white;
   border-radius: 50%;
   background: #42c86b;
 }
@@ -378,7 +379,7 @@ button {
 
 .chat-profile span {
   margin-top: 2px;
-  color: #8d8d94;
+  color: #8a8790;
   font-size: 0.67rem;
 }
 
@@ -387,11 +388,12 @@ button {
   align-items: center;
   gap: 16px;
   font-size: 1.25rem;
+  color: #151219;
 }
 
 .chat-day {
   margin: 18px 0 10px;
-  color: #77777e;
+  color: #a09da5;
   font-size: 0.65rem;
   text-align: center;
 }
@@ -417,6 +419,7 @@ button {
   border-radius: 19px;
   font-size: 0.86rem;
   line-height: 1.4;
+  color: #19171c;
   opacity: 0;
   transform: translateY(10px) scale(0.96);
   animation: chat-arrive 0.35s ease forwards;
@@ -425,13 +428,14 @@ button {
 .chat-message--received {
   align-self: flex-start;
   border-bottom-left-radius: 5px;
-  background: #252529;
+  background: #efeff2;
 }
 
 .chat-message--sent {
   align-self: flex-end;
   border-bottom-right-radius: 5px;
-  background: linear-gradient(135deg, #8e3156, #bb4c71);
+  color: white;
+  background: linear-gradient(135deg, #693af4 0%, #9b30ef 48%, #e32ab7 100%);
 }
 
 .chat-typing {
@@ -444,7 +448,7 @@ button {
   height: 36px;
   padding: 0 14px;
   border-radius: 18px 18px 18px 5px;
-  background: #252529;
+  background: #efeff2;
 }
 
 .chat-typing:not([hidden]) {
@@ -455,7 +459,7 @@ button {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #a2a2aa;
+  background: #8b8990;
   animation: chat-typing 0.8s ease-in-out infinite alternate;
 }
 
@@ -475,11 +479,11 @@ button {
   align-items: center;
   gap: 13px;
   padding: 13px;
-  border: 1px solid rgba(244, 175, 195, 0.25);
+  border: 1px solid rgba(161, 47, 229, 0.18);
   border-radius: 18px;
   color: white;
-  background: linear-gradient(135deg, rgba(108, 30, 59, 0.96), rgba(57, 17, 33, 0.98));
-  box-shadow: 0 15px 38px rgba(0, 0, 0, 0.35);
+  background: linear-gradient(135deg, #6c3cf1, #b52ee0 52%, #ec318e);
+  box-shadow: 0 15px 38px rgba(116, 42, 178, 0.26);
   cursor: pointer;
   opacity: 0;
   transform: translateY(12px);
@@ -495,8 +499,8 @@ button {
   width: 45px;
   height: 45px;
   border-radius: 13px;
-  color: #6f1e3c;
-  background: #f4c9d4;
+  color: #b427a2;
+  background: white;
   font-size: 1.1rem;
   flex: 0 0 auto;
   place-items: center;
@@ -512,7 +516,7 @@ button {
 
 .chat-gift small {
   margin-bottom: 3px;
-  color: #db9fb1;
+  color: rgba(255, 255, 255, 0.72);
   font-size: 0.62rem;
 }
 
@@ -532,7 +536,7 @@ button {
   bottom: 75px;
   padding: 7px;
   border: 0;
-  color: #74747b;
+  color: #99969f;
   background: transparent;
   font-size: 0.65rem;
   cursor: pointer;
@@ -548,9 +552,9 @@ button {
   align-items: center;
   gap: 10px;
   padding: 5px 12px;
-  border: 1px solid #36363b;
+  border: 1px solid #d9d8de;
   border-radius: 24px;
-  background: #121216;
+  background: white;
 }
 
 .chat-composer > span {
@@ -558,8 +562,8 @@ button {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  color: #16161a;
-  background: #c65b80;
+  color: white;
+  background: linear-gradient(145deg, #8c3cf4, #e32aa3);
   place-items: center;
 }
 
@@ -571,13 +575,13 @@ button {
 
 .chat-composer p {
   margin: 0;
-  color: #707078;
+  color: #aaa7af;
   font-size: 0.78rem;
   flex: 1;
 }
 
 .chat-composer i {
-  color: #b5b5bb;
+  color: #2b2830;
   font-size: 1.25rem;
   font-style: normal;
 }

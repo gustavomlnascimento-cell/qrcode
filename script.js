@@ -6,6 +6,7 @@ const CONFIG = {
   fotoPerfilChat: "", // Exemplo: "assets/perfil.jpg"
   mensagensChat: [
     { lado: "recebida", texto: "Oi, meu amor..." },
+    { lado: "enviada", texto: "Oi amor, o que foi? 👀" },
     { lado: "recebida", texto: "Hoje eu queria te entregar algo diferente." },
     { lado: "recebida", texto: "Fiz cada pedacinho pensando em você." },
     { lado: "recebida", texto: "Está pronta para abrir?" },
