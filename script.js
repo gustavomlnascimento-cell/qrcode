@@ -47,6 +47,17 @@ const CONFIG = {
     { tipo: "mensagem", autor: "gustavo", texto: "vou comprar os ingre. ja pelo app", rapido: true },
     { tipo: "mensagem", autor: "nubia", texto: "KKKKKKKKKKKKKKKKKKKKKKKKKKKK", rapido: true },
     { tipo: "mensagem", autor: "nubia", texto: "eu me divirto", reacao: "😂", rapido: true },
+    { tipo: "data", texto: "8 de junho" },
+    {
+      tipo: "mensagem",
+      autor: "gustavo",
+      texto:
+        "presentinho dos dias dos namorados (vulgo niver), posso te entregar? 🍫🌹\n\ncartaozinho de mensagem vai ta no qrcode customizado..\n\n(engenharia de software) haha",
+      rapido: true,
+    },
+    { tipo: "mensagem", autor: "nubia", texto: "fico até com medo......", rapido: true },
+    { tipo: "mensagem", autor: "nubia", texto: "KKKKKKKKKKK", reacao: "😂", rapido: true },
+    { tipo: "mensagem", autor: "nubia", texto: "pode entregar", reacao: "💗", rapido: true },
     { tipo: "data", texto: "Hoje" },
     {
       tipo: "mensagem",
