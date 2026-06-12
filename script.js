@@ -618,6 +618,90 @@ function appendChatContent(type, messages) {
   messages.appendChild(card);
 }
 
+function setupMessageReactions() {
+  const messages = $("#chat-messages");
+  const picker = $("#reaction-picker");
+  let target = null;
+  let pressTimer;
+  let lastTap = 0;
+
+  const findTarget = (element) =>
+    element.closest(".chat-message, .chat-content-card, .chat-gift");
+
+  const setReaction = (element, emoji) => {
+    if (!element) return;
+    let reaction = $(".message-reaction", element);
+    if (!reaction) {
+      reaction = document.createElement("button");
+      reaction.type = "button";
+      reaction.className = "message-reaction";
+      reaction.setAttribute("aria-label", "Remover reação");
+      element.appendChild(reaction);
+    }
+    reaction.textContent = emoji;
+    reaction.classList.remove("is-popping");
+    window.requestAnimationFrame(() => reaction.classList.add("is-popping"));
+  };
+
+  const openPicker = (element) => {
+    target = element;
+    const rect = element.getBoundingClientRect();
+    picker.hidden = false;
+    const pickerWidth = picker.offsetWidth;
+    const left = Math.min(
+      window.innerWidth - pickerWidth - 10,
+      Math.max(10, rect.left + rect.width / 2 - pickerWidth / 2),
+    );
+    picker.style.left = `${left}px`;
+    picker.style.top = `${Math.max(10, rect.top - 58)}px`;
+  };
+
+  const closePicker = () => {
+    picker.hidden = true;
+    target = null;
+  };
+
+  messages.addEventListener("pointerdown", (event) => {
+    const element = findTarget(event.target);
+    if (!element || event.target.closest("button")) return;
+    pressTimer = window.setTimeout(() => openPicker(element), 520);
+  });
+
+  messages.addEventListener("pointerup", (event) => {
+    window.clearTimeout(pressTimer);
+    const element = findTarget(event.target);
+    if (!element || event.target.closest("button")) return;
+
+    const now = Date.now();
+    if (now - lastTap < 320) {
+      setReaction(element, "❤️");
+      closePicker();
+      lastTap = 0;
+    } else {
+      lastTap = now;
+    }
+  });
+
+  messages.addEventListener("pointercancel", () => window.clearTimeout(pressTimer));
+  messages.addEventListener("pointermove", () => window.clearTimeout(pressTimer));
+
+  picker.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-reaction]");
+    if (!button) return;
+    setReaction(target, button.dataset.reaction);
+    closePicker();
+  });
+
+  messages.addEventListener("click", (event) => {
+    const reaction = event.target.closest(".message-reaction");
+    if (reaction) reaction.remove();
+  });
+
+  document.addEventListener("pointerdown", (event) => {
+    if (!picker.hidden && !picker.contains(event.target)) closePicker();
+  });
+}
+
 function setupMemoryGame(onComplete) {
   const game = $("#chat-game");
   const board = $("#couple-memory");
@@ -848,6 +932,7 @@ function setupInteractions(playMusic) {
 
 fillPersonalDetails();
 setupChatIntro();
+setupMessageReactions();
 buildTimeline();
 buildGallery();
 buildRetrospective();

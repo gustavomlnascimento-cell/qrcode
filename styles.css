@@ -356,6 +356,7 @@ button {
 }
 
 .chat-message {
+  position: relative;
   max-width: 78%;
   padding: 10px 14px;
   border-radius: 18px;
@@ -381,6 +382,7 @@ button {
 }
 
 .chat-content-card {
+  position: relative;
   width: 86%;
   margin: 6px 0 10px;
   padding: 16px;
@@ -393,6 +395,71 @@ button {
   transform: translateY(10px);
   animation: chat-arrive 0.4s ease forwards;
   flex: 0 0 auto;
+}
+
+.message-reaction {
+  position: absolute;
+  z-index: 6;
+  right: 7px;
+  bottom: -12px;
+  display: grid;
+  min-width: 29px;
+  height: 24px;
+  padding: 0 6px;
+  border: 2px solid white;
+  border-radius: 13px;
+  background: #f1f1f3;
+  box-shadow: 0 2px 6px rgba(25, 20, 29, 0.15);
+  font-size: 0.82rem;
+  cursor: pointer;
+  place-items: center;
+}
+
+.chat-message--received .message-reaction,
+.chat-content-card .message-reaction {
+  right: 7px;
+  left: auto;
+}
+
+.chat-message--sent .message-reaction {
+  right: auto;
+  left: 7px;
+}
+
+.message-reaction.is-popping {
+  animation: reaction-pop 0.35s ease;
+}
+
+.reaction-picker {
+  position: fixed;
+  z-index: 100;
+  display: flex;
+  gap: 3px;
+  padding: 7px 8px;
+  border: 1px solid rgba(30, 25, 34, 0.08);
+  border-radius: 24px;
+  background: white;
+  box-shadow: 0 8px 28px rgba(24, 18, 29, 0.2);
+  animation: picker-open 0.18s ease;
+}
+
+.reaction-picker button {
+  display: grid;
+  width: 33px;
+  height: 33px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  font-size: 1.15rem;
+  cursor: pointer;
+  place-items: center;
+  transition: transform 0.16s ease, background 0.16s ease;
+}
+
+.reaction-picker button:hover {
+  background: #f2f1f4;
+  transform: scale(1.18);
 }
 
 .chat-content-card > small {
@@ -2395,6 +2462,17 @@ footer > span {
   from {
     opacity: 0;
     transform: translateY(18px);
+  }
+}
+
+@keyframes reaction-pop {
+  50% { transform: scale(1.45); }
+}
+
+@keyframes picker-open {
+  from {
+    opacity: 0;
+    transform: translateY(7px) scale(0.92);
   }
 }
 
