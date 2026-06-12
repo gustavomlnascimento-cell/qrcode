@@ -15,6 +15,10 @@
   box-sizing: border-box;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -374,6 +378,217 @@ button {
   border-bottom-right-radius: 18px;
   color: white;
   background: linear-gradient(135deg, #693af4 0%, #9b30ef 48%, #e32ab7 100%);
+}
+
+.chat-content-card {
+  width: 86%;
+  margin: 6px 0 10px;
+  padding: 16px;
+  border: 1px solid #e5e4e8;
+  border-radius: 18px;
+  color: #201c23;
+  background: white;
+  box-shadow: 0 5px 18px rgba(27, 22, 32, 0.07);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: chat-arrive 0.4s ease forwards;
+  flex: 0 0 auto;
+}
+
+.chat-content-card > small {
+  display: block;
+  margin-bottom: 8px;
+  color: #8d8992;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.chat-content-card > strong {
+  display: block;
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+
+.chat-content-card > p {
+  margin: 8px 0 0;
+  color: #706c74;
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.chat-content-card--contador {
+  color: white;
+  background: linear-gradient(145deg, #6d3bea, #b72cd2 55%, #ee397d);
+}
+
+.chat-content-card--contador > small,
+.chat-content-card--contador > p {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.chat-content-card--contador > strong {
+  font-size: 2rem;
+}
+
+.chat-timeline {
+  position: relative;
+  display: grid;
+  gap: 15px;
+  margin-top: 14px;
+}
+
+.chat-timeline::before {
+  position: absolute;
+  top: 7px;
+  bottom: 7px;
+  left: 4px;
+  width: 1px;
+  background: #d9c7e5;
+  content: "";
+}
+
+.chat-timeline > div {
+  position: relative;
+  display: grid;
+  padding-left: 20px;
+}
+
+.chat-timeline i {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  border: 2px solid white;
+  border-radius: 50%;
+  background: #9b35dc;
+  box-shadow: 0 0 0 1px #9b35dc;
+}
+
+.chat-timeline span {
+  color: #9a7699;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+}
+
+.chat-timeline strong {
+  margin-top: 2px;
+  font-size: 0.75rem;
+}
+
+.chat-photo-grid {
+  display: grid;
+  height: 235px;
+  gap: 3px;
+  overflow: hidden;
+  border-radius: 12px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.chat-photo-grid > div {
+  display: grid;
+  overflow: hidden;
+  color: #9b6b91;
+  background: linear-gradient(145deg, #f6e6f0, #e9def7);
+  font-size: 0.66rem;
+  text-align: center;
+  place-items: center;
+}
+
+.chat-photo-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.chat-photo-grid span {
+  line-height: 1.5;
+}
+
+.chat-content-card--motivos {
+  padding: 20px;
+  background: linear-gradient(150deg, #fffafd, #f7f1ff);
+}
+
+.chat-reason {
+  min-height: 67px;
+  font: 400 1.45rem/1.15 var(--serif);
+}
+
+.chat-reason-next {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 18px;
+  padding: 10px 0 0;
+  border: 0;
+  border-top: 1px solid #e7dce9;
+  color: #8438d0;
+  background: transparent;
+  font-size: 0.68rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.chat-reason-next span {
+  color: #9b929e;
+}
+
+.chat-content-card--aniversario {
+  position: relative;
+  padding: 23px 20px;
+  overflow: hidden;
+  color: white;
+  background:
+    radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.22), transparent 22%),
+    linear-gradient(145deg, #f24c7d, #a52dd1 68%, #623bf0);
+}
+
+.chat-content-card--aniversario > small,
+.chat-content-card--aniversario > p {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.chat-birthday-icon {
+  float: right;
+  font-size: 1.5rem;
+}
+
+.chat-content-card--carta {
+  position: relative;
+  padding: 22px;
+  color: #4b2538;
+  background:
+    linear-gradient(rgba(121, 93, 101, 0.08) 1px, transparent 1px) 0 38px/100% 25px,
+    #fff7e9;
+}
+
+.chat-letter-seal {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 17px;
+  border-radius: 50%;
+  color: white;
+  background: #8b294a;
+  place-items: center;
+}
+
+.chat-letter-open {
+  width: 100%;
+  margin-top: 17px;
+  padding: 11px;
+  border: 0;
+  border-radius: 10px;
+  color: white;
+  background: #8b294a;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .chat-typing {

@@ -34,14 +34,18 @@ const CONFIG = {
       icone: "↻",
     },
     { tipo: "mensagem", lado: "recebida", texto: "Gostei da escolha 😏 Já pode cobrar seu prêmio." },
-    { tipo: "mensagem", lado: "recebida", texto: "Fiz cada pedacinho pensando em você." },
-    { tipo: "mensagem", lado: "recebida", texto: "Agora sim... está pronta para abrir?" },
-    {
-      tipo: "presente",
-      rotulo: "Uma mensagem especial",
-      titulo: "Toque para abrir seu presente",
-      icone: "♥",
-    },
+    { tipo: "mensagem", lado: "recebida", texto: "agora deixa eu te mostrar por que preparei tudo isso" },
+    { tipo: "conteudo", conteudo: "contador" },
+    { tipo: "mensagem", lado: "recebida", texto: "e pensar que tudo começou assim..." },
+    { tipo: "conteudo", conteudo: "historia" },
+    { tipo: "mensagem", lado: "recebida", texto: "separei algumas memórias que eu nunca quero esquecer" },
+    { tipo: "conteudo", conteudo: "fotos" },
+    { tipo: "mensagem", lado: "recebida", texto: "e ainda faltam muitos motivos pra dizer o quanto você é especial" },
+    { tipo: "conteudo", conteudo: "motivos" },
+    { tipo: "mensagem", lado: "recebida", texto: "feliz aniversário e feliz dia dos namorados ❤️" },
+    { tipo: "conteudo", conteudo: "aniversario" },
+    { tipo: "mensagem", lado: "recebida", texto: "por último, escrevi uma coisa que queria que você lesse com calma" },
+    { tipo: "conteudo", conteudo: "carta" },
   ],
   inicioRelacionamento: "2023-06-12T20:00:00",
   dataEspecial: "2026-06-12T00:00:00",
@@ -436,23 +440,13 @@ function createHearts(amount = 18) {
 }
 
 function setupChatIntro() {
-  const intro = $("#chat-intro");
   const messages = $("#chat-messages");
   const typing = $("#chat-typing");
   const actionCard = $("#chat-gift");
-  let stopped = false;
   let currentAction = null;
   let stepIndex = 0;
 
   const wait = (duration) => new Promise((resolve) => window.setTimeout(resolve, duration));
-
-  const finishChat = () => {
-    if (stopped) return;
-    stopped = true;
-    typing.hidden = true;
-    intro.classList.add("is-finished");
-    intro.setAttribute("aria-hidden", "true");
-  };
 
   const showAction = (step) => {
     currentAction = step;
@@ -468,15 +462,19 @@ function setupChatIntro() {
     while (stepIndex < CONFIG.roteiroChat.length) {
       const step = CONFIG.roteiroChat[stepIndex];
       stepIndex += 1;
-      if (stopped) return;
-      if (step.tipo !== "mensagem") {
+      if (step.tipo === "jogo") {
         showAction(step);
         return;
+      }
+      if (step.tipo === "conteudo") {
+        appendChatContent(step.conteudo, messages);
+        messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
+        await wait(900);
+        continue;
       }
 
       typing.hidden = false;
       await wait(Math.min(1500, 650 + step.texto.length * 18));
-      if (stopped) return;
       typing.hidden = true;
 
       const bubble = document.createElement("div");
@@ -506,17 +504,12 @@ function setupChatIntro() {
   };
 
   actionCard.addEventListener("click", () => {
-    if (currentAction?.tipo === "presente") {
-      finishChat();
-      return;
-    }
     if (currentAction?.tipo === "jogo") {
       actionCard.hidden = true;
       const games = { memoria: setupMemoryGame, roleta: setupRouletteGame };
       games[currentAction.jogo]?.(continueAfterAction);
     }
   });
-  $("#chat-skip").addEventListener("click", finishChat);
 
   const updatePhoneTime = () => {
     $("#phone-time").textContent = new Date().toLocaleTimeString("pt-BR", {
@@ -527,6 +520,102 @@ function setupChatIntro() {
   updatePhoneTime();
   window.setInterval(updatePhoneTime, 30_000);
   playConversation();
+}
+
+function appendChatContent(type, messages) {
+  const card = document.createElement("article");
+  card.className = `chat-content-card chat-content-card--${type}`;
+
+  if (type === "contador") {
+    const start = new Date(CONFIG.inicioRelacionamento);
+    const totalDays = Math.max(0, Math.floor((Date.now() - start.getTime()) / 86_400_000));
+    const years = Math.floor(totalDays / 365.2425);
+    card.innerHTML = `
+      <small>Desde que tudo começou</small>
+      <strong>${totalDays.toLocaleString("pt-BR")} dias</strong>
+      <p>${years > 0 ? `${years} anos` : "cada dia"} colecionando momentos com você.</p>
+    `;
+  }
+
+  if (type === "historia") {
+    card.innerHTML = `
+      <small>Nossa história</small>
+      <div class="chat-timeline">
+        ${CONFIG.historia
+          .slice(0, 3)
+          .map(
+            (item) => `
+              <div>
+                <i></i>
+                <span>${item.data}</span>
+                <strong>${item.titulo}</strong>
+              </div>
+            `,
+          )
+          .join("")}
+      </div>
+    `;
+  }
+
+  if (type === "fotos") {
+    card.innerHTML = `
+      <small>Algumas das minhas favoritas</small>
+      <div class="chat-photo-grid">
+        ${CONFIG.fotos
+          .slice(0, 4)
+          .map(
+            (photo, index) => `
+              <div>
+                <img src="${photo.arquivo}" alt="${photo.legenda}"
+                  onerror="this.hidden=true; this.nextElementSibling.hidden=false">
+                <span hidden>foto ${index + 1}<br>♥</span>
+              </div>
+            `,
+          )
+          .join("")}
+      </div>
+      <p>${CONFIG.fotos[0]?.legenda || "Nossas memórias"}</p>
+    `;
+  }
+
+  if (type === "motivos") {
+    card.innerHTML = `
+      <small>Coisas que amo em você</small>
+      <strong class="chat-reason" id="chat-reason">${CONFIG.motivos[0]}</strong>
+      <button class="chat-reason-next" type="button">ver outro motivo <span>1/${CONFIG.motivos.length}</span></button>
+    `;
+    let reasonIndex = 0;
+    $(".chat-reason-next", card).addEventListener("click", () => {
+      reasonIndex = (reasonIndex + 1) % CONFIG.motivos.length;
+      $(".chat-reason", card).textContent = CONFIG.motivos[reasonIndex];
+      $(".chat-reason-next span", card).textContent = `${reasonIndex + 1}/${CONFIG.motivos.length}`;
+    });
+  }
+
+  if (type === "aniversario") {
+    card.innerHTML = `
+      <span class="chat-birthday-icon">✦</span>
+      <small>Um novo ciclo</small>
+      <strong>Feliz vida!</strong>
+      <p>${CONFIG.mensagemAniversario}</p>
+    `;
+  }
+
+  if (type === "carta") {
+    card.innerHTML = `
+      <span class="chat-letter-seal">♥</span>
+      <small>Mensagem especial</small>
+      <strong>Uma carta para você</strong>
+      <p>Essa parte merece uma tela só dela.</p>
+      <button class="chat-letter-open" type="button">Abrir carta</button>
+    `;
+    $(".chat-letter-open", card).addEventListener("click", () => {
+      $("#letter-modal").showModal();
+      createHearts(12);
+    });
+  }
+
+  messages.appendChild(card);
 }
 
 function setupMemoryGame(onComplete) {
