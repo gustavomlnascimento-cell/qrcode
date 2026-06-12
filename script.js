@@ -97,7 +97,7 @@ const CONFIG = {
   mensagemPrincipal:
     "Hoje celebramos você, nós e todas as histórias lindas que ainda vamos viver.",
   mensagemAniversario:
-    "Que seu novo ciclo seja leve, intenso e cheio de motivos para sorrir. Quero estar pertinho em cada um deles.",
+    "Que seu novo ciclo venha com muita saúde, muitos presentes, momentos felizes e um montão de coisas boas. Você merece tudo de melhor!",
   carta: [
     { numero: 3, simbolo: "Li", nome: "Lítio" },
     { numero: 60, simbolo: "Nd", nome: "Neodímio" },
