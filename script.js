@@ -43,8 +43,6 @@ const CONFIG = {
     { tipo: "data", texto: "15 de maio" },
     { tipo: "mensagem", autor: "gustavo", texto: "vinijr & virginia terminaram, nubia ñ me responde, ja era, vou desisti do amor hahah", rapido: true },
     { tipo: "data", texto: "17 de maio" },
-    { tipo: "mensagem", autor: "gustavo", texto: "te busco umas 17h? waze ta dando ~15min até la", rapido: true },
-    { tipo: "mensagem", autor: "gustavo", texto: "vou comprar os ingre. ja pelo app", rapido: true },
     { tipo: "mensagem", autor: "nubia", texto: "KKKKKKKKKKKKKKKKKKKKKKKKKKKK", rapido: true },
     { tipo: "mensagem", autor: "nubia", texto: "eu me divirto", reacao: "😂", rapido: true },
     { tipo: "data", texto: "8 de junho" },
@@ -64,8 +62,6 @@ const CONFIG = {
       autor: "gustavo",
       texto: "happy birthday crush, to terminando o script 👨🏽‍💻\n\nvou caprichar p compensar o atraso haha",
     },
-    { tipo: "mensagem", autor: "nubia", texto: "kkkkkkkkkkkkkkkk" },
-    { tipo: "mensagem", autor: "nubia", texto: "você me surpreende todos os dias" },
     {
       tipo: "jogo",
       jogo: "memoria",
