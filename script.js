@@ -43,8 +43,6 @@ const CONFIG = {
     { tipo: "mensagem", autor: "nubia", texto: "boa noite", reacao: "❤️", rapido: true },
     { tipo: "mensagem", autor: "nubia", texto: "fiquei o dia todo atolada escrevendo pra minha ic", reacao: "💯", rapido: true },
     { tipo: "mensagem", autor: "gustavo", texto: "se vc quiser ir no sábado~domingo ou quando tiver disponibilidade...", rapido: true },
-    { tipo: "mensagem", autor: "nubia", texto: "pior que estou com dor de garganta tbm", rapido: true },
-    { tipo: "mensagem", autor: "nubia", texto: "kkkkkkkkkkkkkkk", reacao: "😂", rapido: true },
     { tipo: "data", texto: "14 de maio" },
     { tipo: "audio", autor: "gustavo", duracao: "0:13" },
     { tipo: "foto", autor: "gustavo", arquivo: "media/IMG-20260612-WA0024.jpg", temporaria: true },
