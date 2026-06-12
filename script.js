@@ -493,7 +493,10 @@ function setupChatIntro() {
     if (result) {
       const bubble = document.createElement("div");
       bubble.className = "chat-message chat-message--received";
-      bubble.textContent = `A roleta escolheu: ${result} 🎉`;
+      bubble.textContent =
+        result === "__skip__"
+          ? "sem problema, vamos continuar por aqui 🙂"
+          : `A roleta escolheu: ${result} 🎉`;
       messages.appendChild(bubble);
       messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
     }
@@ -561,6 +564,10 @@ function setupMemoryGame(onComplete) {
   $("#game-success-text").textContent = "Mais uma memória desbloqueada.";
   $("#game-score").textContent = "0 de 3 pares";
   game.hidden = false;
+  $("#game-skip").onclick = () => {
+    game.hidden = true;
+    onComplete("__skip__");
+  };
 
   $$(".memory-card", board).forEach((card) => {
     card.addEventListener("click", () => {
@@ -641,6 +648,10 @@ function setupRouletteGame(onComplete) {
   $(".chat-game__intro small").textContent = "Toque no botão e descubra o seu prêmio.";
   spinButton.disabled = false;
   spinButton.textContent = "Girar a roleta";
+  $("#game-skip").onclick = () => {
+    game.hidden = true;
+    onComplete("__skip__");
+  };
 
   spinButton.onclick = () => {
     if (spinning) return;

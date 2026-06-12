@@ -557,6 +557,23 @@ button {
   font-size: 0.64rem;
 }
 
+.chat-game__skip {
+  position: absolute;
+  z-index: 3;
+  top: 49px;
+  right: 20px;
+  padding: 6px 0;
+  border: 0;
+  color: #8b8790;
+  background: transparent;
+  font-size: 0.66rem;
+  cursor: pointer;
+}
+
+.chat-game__skip:hover {
+  color: #6c35d9;
+}
+
 .chat-game__intro {
   margin: 42px auto 30px;
   text-align: center;
