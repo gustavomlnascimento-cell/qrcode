@@ -4,12 +4,27 @@ const CONFIG = {
   seuNome: "Seu Amor",
   usuarioChat: "@seuamor",
   fotoPerfilChat: "", // Exemplo: "assets/perfil.jpg"
-  mensagensChat: [
-    { lado: "recebida", texto: "Oi, meu amor..." },
-    { lado: "enviada", texto: "Oi amor, o que foi? 👀" },
-    { lado: "recebida", texto: "Hoje eu queria te entregar algo diferente." },
-    { lado: "recebida", texto: "Fiz cada pedacinho pensando em você." },
-    { lado: "recebida", texto: "Está pronta para abrir?" },
+  roteiroChat: [
+    { tipo: "mensagem", lado: "recebida", texto: "Oi, meu amor..." },
+    { tipo: "mensagem", lado: "enviada", texto: "Oi amor, o que foi? 👀" },
+    { tipo: "mensagem", lado: "recebida", texto: "Hoje eu queria te entregar algo diferente." },
+    { tipo: "mensagem", lado: "recebida", texto: "Mas primeiro preciso saber se você está preparada 😌" },
+    {
+      tipo: "jogo",
+      jogo: "memoria",
+      rotulo: "Primeiro desafio",
+      titulo: "Encontre nossos pares",
+      icone: "✦",
+    },
+    { tipo: "mensagem", lado: "recebida", texto: "Eu sabia que você conseguiria ❤️" },
+    { tipo: "mensagem", lado: "recebida", texto: "Fiz cada pedacinho pensando em você." },
+    { tipo: "mensagem", lado: "recebida", texto: "Agora sim... está pronta para abrir?" },
+    {
+      tipo: "presente",
+      rotulo: "Uma mensagem especial",
+      titulo: "Toque para abrir seu presente",
+      icone: "♥",
+    },
   ],
   inicioRelacionamento: "2023-06-12T20:00:00",
   dataEspecial: "2026-06-12T00:00:00",
@@ -407,9 +422,11 @@ function setupChatIntro() {
   const intro = $("#chat-intro");
   const messages = $("#chat-messages");
   const typing = $("#chat-typing");
-  const gift = $("#chat-gift");
+  const actionCard = $("#chat-gift");
   const phoneScene = $(".phone-scene");
   let stopped = false;
+  let currentAction = null;
+  let stepIndex = 0;
 
   const wait = (duration) => new Promise((resolve) => window.setTimeout(resolve, duration));
 
@@ -421,30 +438,58 @@ function setupChatIntro() {
     intro.setAttribute("aria-hidden", "true");
   };
 
+  const showAction = (step) => {
+    currentAction = step;
+    $("#chat-card-label").textContent = step.rotulo;
+    $("#chat-card-title").textContent = step.titulo;
+    $("#chat-card-icon").textContent = step.icone;
+    actionCard.hidden = false;
+  };
+
   const playConversation = async () => {
     await wait(650);
 
-    for (const message of CONFIG.mensagensChat) {
+    while (stepIndex < CONFIG.roteiroChat.length) {
+      const step = CONFIG.roteiroChat[stepIndex];
+      stepIndex += 1;
       if (stopped) return;
+      if (step.tipo !== "mensagem") {
+        showAction(step);
+        return;
+      }
+
       typing.hidden = false;
-      await wait(Math.min(1500, 650 + message.texto.length * 18));
+      await wait(Math.min(1500, 650 + step.texto.length * 18));
       if (stopped) return;
       typing.hidden = true;
 
       const bubble = document.createElement("div");
-      const side = message.lado === "enviada" ? "sent" : "received";
+      const side = step.lado === "enviada" ? "sent" : "received";
       bubble.className = `chat-message chat-message--${side}`;
-      bubble.textContent = message.texto;
+      bubble.textContent = step.texto;
       messages.appendChild(bubble);
       messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
       await wait(480);
     }
-
-    if (stopped) return;
-    gift.hidden = false;
   };
 
-  gift.addEventListener("click", finishChat);
+  const continueAfterAction = () => {
+    currentAction = null;
+    actionCard.hidden = true;
+    playConversation();
+  };
+
+  actionCard.addEventListener("click", () => {
+    if (currentAction?.tipo === "presente") {
+      finishChat();
+      return;
+    }
+    if (currentAction?.tipo === "jogo") {
+      actionCard.hidden = true;
+      const games = { memoria: setupMemoryGame };
+      games[currentAction.jogo]?.(continueAfterAction);
+    }
+  });
   $("#chat-skip").addEventListener("click", finishChat);
   $("#chat-focus").addEventListener("click", () => {
     phoneScene.classList.remove("is-highlighted");
@@ -461,6 +506,75 @@ function setupChatIntro() {
   updatePhoneTime();
   window.setInterval(updatePhoneTime, 30_000);
   playConversation();
+}
+
+function setupMemoryGame(onComplete) {
+  const game = $("#chat-game");
+  const board = $("#couple-memory");
+  const success = $("#game-success");
+  const symbols = ["♥", "✦", "🎁"];
+  const cards = [...symbols, ...symbols].sort(() => Math.random() - 0.5);
+  let openCards = [];
+  let matches = 0;
+  let locked = false;
+
+  board.innerHTML = cards
+    .map(
+      (symbol, index) => `
+        <button class="memory-card" type="button" data-symbol="${symbol}" aria-label="Carta ${index + 1}">
+          <span class="memory-card__inner">
+            <span class="memory-card__face memory-card__back">?</span>
+            <span class="memory-card__face memory-card__front">${symbol}</span>
+          </span>
+        </button>
+      `,
+    )
+    .join("");
+
+  success.hidden = true;
+  $("#game-score").textContent = "0 de 3 pares";
+  game.hidden = false;
+
+  $$(".memory-card", board).forEach((card) => {
+    card.addEventListener("click", () => {
+      if (locked || card.classList.contains("is-open") || card.classList.contains("is-matched")) return;
+
+      card.classList.add("is-open");
+      openCards.push(card);
+      if (openCards.length < 2) return;
+
+      locked = true;
+      const [first, second] = openCards;
+      const matched = first.dataset.symbol === second.dataset.symbol;
+
+      window.setTimeout(() => {
+        if (matched) {
+          first.classList.add("is-matched");
+          second.classList.add("is-matched");
+          matches += 1;
+          $("#game-score").textContent = `${matches} de 3 pares`;
+        } else {
+          first.classList.remove("is-open");
+          second.classList.remove("is-open");
+        }
+
+        openCards = [];
+        locked = false;
+
+        if (matches === symbols.length) {
+          window.setTimeout(() => {
+            success.hidden = false;
+            createHearts(16);
+          }, 350);
+        }
+      }, 650);
+    });
+  });
+
+  $("#game-return").onclick = () => {
+    game.hidden = true;
+    onComplete();
+  };
 }
 
 function setupMusic() {

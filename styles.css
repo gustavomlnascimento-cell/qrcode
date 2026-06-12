@@ -586,6 +586,188 @@ button {
   font-style: normal;
 }
 
+.chat-game {
+  position: absolute;
+  z-index: 12;
+  inset: 40px 0 0;
+  padding: 24px 20px 30px;
+  overflow-y: auto;
+  color: #241526;
+  background:
+    radial-gradient(circle at 50% 10%, rgba(220, 47, 164, 0.12), transparent 26%),
+    linear-gradient(165deg, #fffafd, #f5f0ff);
+  animation: game-open 0.45s ease;
+}
+
+.chat-game__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #8b718b;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.chat-game__top strong {
+  color: #9a32c8;
+  font-size: 0.64rem;
+}
+
+.chat-game__intro {
+  margin: 42px auto 30px;
+  text-align: center;
+}
+
+.chat-game__intro > span {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 20px;
+  border-radius: 18px;
+  color: white;
+  background: linear-gradient(145deg, #7b3df2, #e42b9e);
+  box-shadow: 0 12px 28px rgba(160, 46, 187, 0.24);
+  font-size: 1.25rem;
+  place-items: center;
+}
+
+.chat-game__intro p {
+  margin: 0 0 5px;
+  color: #a3839d;
+  font-size: 0.61rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.chat-game__intro h2 {
+  margin: 0 0 9px;
+  font: 400 2.35rem/1 var(--serif);
+}
+
+.chat-game__intro small {
+  color: #81727f;
+  font-size: 0.72rem;
+}
+
+.memory-game {
+  display: grid;
+  max-width: 310px;
+  margin: auto;
+  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.memory-card {
+  position: relative;
+  aspect-ratio: 0.78;
+  padding: 0;
+  border: 0;
+  border-radius: 15px;
+  background: transparent;
+  cursor: pointer;
+  perspective: 600px;
+}
+
+.memory-card__inner {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.5s ease;
+  transform-style: preserve-3d;
+}
+
+.memory-card.is-open .memory-card__inner,
+.memory-card.is-matched .memory-card__inner {
+  transform: rotateY(180deg);
+}
+
+.memory-card__face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  border-radius: 15px;
+  box-shadow: 0 8px 22px rgba(86, 43, 99, 0.12);
+  font-weight: 700;
+  backface-visibility: hidden;
+  place-items: center;
+}
+
+.memory-card__back {
+  border: 1px solid rgba(154, 50, 200, 0.14);
+  color: rgba(255, 255, 255, 0.82);
+  background:
+    radial-gradient(circle at 75% 15%, rgba(255, 255, 255, 0.25), transparent 22%),
+    linear-gradient(145deg, #713ef0, #d92bae 62%, #f44b79);
+  font: 400 1.6rem var(--serif);
+}
+
+.memory-card__front {
+  border: 1px solid #ebdceb;
+  color: #b42aa8;
+  background: white;
+  font-size: 1.9rem;
+  transform: rotateY(180deg);
+}
+
+.memory-card.is-matched .memory-card__front {
+  border-color: #cfa9eb;
+  background: #fbf5ff;
+  box-shadow: 0 0 0 2px rgba(160, 57, 211, 0.09), 0 8px 22px rgba(86, 43, 99, 0.12);
+}
+
+.chat-game__success {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  padding: 30px;
+  color: white;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0.16), transparent 24%),
+    linear-gradient(155deg, #6b39ee, #b92ed7 52%, #ee347f);
+  text-align: center;
+  animation: game-open 0.5s ease;
+}
+
+.chat-game__success:not([hidden]) {
+  display: grid;
+  place-content: center;
+}
+
+.chat-game__success > span {
+  display: grid;
+  width: 74px;
+  height: 74px;
+  margin: 0 auto 24px;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 1.8rem;
+  place-items: center;
+}
+
+.chat-game__success h3 {
+  margin: 0 0 8px;
+  font: 400 3rem/1 var(--serif);
+}
+
+.chat-game__success p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.chat-game__success button {
+  margin-top: 35px;
+  padding: 14px 22px;
+  border: 0;
+  border-radius: 99px;
+  color: #8b2ac5;
+  background: white;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 .welcome {
   position: fixed;
   z-index: 15;
@@ -1933,6 +2115,13 @@ footer > span {
 
 @keyframes phone-focus {
   50% { transform: scale(1.025); }
+}
+
+@keyframes game-open {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
 }
 
 @keyframes equalizer {

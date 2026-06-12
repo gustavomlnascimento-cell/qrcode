@@ -64,13 +64,33 @@
               </div>
 
               <button class="chat-gift" id="chat-gift" type="button" hidden>
-                <span class="chat-gift__icon" aria-hidden="true">♥</span>
+                <span class="chat-gift__icon" id="chat-card-icon" aria-hidden="true">♥</span>
                 <span>
-                  <small>Uma mensagem especial</small>
-                  <strong>Toque para abrir seu presente</strong>
+                  <small id="chat-card-label">Uma mensagem especial</small>
+                  <strong id="chat-card-title">Toque para abrir seu presente</strong>
                 </span>
                 <b aria-hidden="true">›</b>
               </button>
+
+              <section class="chat-game" id="chat-game" aria-labelledby="game-title" hidden>
+                <div class="chat-game__top">
+                  <span id="game-step">Desafio 01</span>
+                  <strong id="game-score">0 de 3 pares</strong>
+                </div>
+                <div class="chat-game__intro">
+                  <span aria-hidden="true">♥</span>
+                  <p>Um joguinho para aquecer o coração</p>
+                  <h2 id="game-title">Encontre os pares</h2>
+                  <small>Toque nas cartas e combine todos os símbolos.</small>
+                </div>
+                <div class="memory-game" id="couple-memory" aria-label="Jogo da memória"></div>
+                <div class="chat-game__success" id="game-success" hidden>
+                  <span aria-hidden="true">♥</span>
+                  <h3>Você conseguiu!</h3>
+                  <p>Mais uma memória desbloqueada.</p>
+                  <button id="game-return" type="button">Voltar para a conversa →</button>
+                </div>
+              </section>
 
               <button class="chat-skip" id="chat-skip" type="button">Pular conversa</button>
 

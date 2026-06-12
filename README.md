@@ -8,7 +8,7 @@ direto no celular por meio de um QR code.
 1. Abra `script.js`.
 2. Edite o objeto `CONFIG` no começo do arquivo:
    - nomes;
-   - usuário, foto e mensagens da conversa inicial;
+   - usuário, foto e roteiro da conversa inicial;
    - data do início do relacionamento;
    - textos da carta e da história;
    - motivos;
@@ -22,6 +22,10 @@ musica: "assets/nossa-musica.mp3",
 ```
 
 Sem música configurada, o botão de áudio fica oculto.
+
+O `roteiroChat` aceita etapas do tipo `mensagem`, `jogo` e `presente`. Os jogos
+abrem dentro do celular e, quando concluídos, retornam automaticamente à
+conversa.
 
 Para adicionar uma mensagem de voz, coloque a gravação na pasta `assets` e
 altere `mensagemDeVoz` no mesmo bloco. O prêmio da raspadinha também pode ser
