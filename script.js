@@ -23,6 +23,41 @@ const CONFIG = {
     "Muitos beijos",
   ],
   roteiroChat: [
+    { tipo: "data", texto: "11 de abril" },
+    { tipo: "mensagem", autor: "gustavo", texto: "🍿 (pipoca) <- p acompanhar esse espetáculo 👏🏽", rapido: true },
+    { tipo: "data", texto: "25 de abril" },
+    { tipo: "mensagem", autor: "gustavo", texto: "2029. 981 dias p eu começar a namorar", rapido: true },
+    { tipo: "mensagem", autor: "nubia", texto: "KKKKKKKKKKKKKKKKKKKKKKKKKKKK", rapido: true },
+    { tipo: "mensagem", autor: "nubia", texto: "eu me divirto", reacao: "😂", rapido: true },
+    { tipo: "data", texto: "27 de abril" },
+    {
+      tipo: "mensagem",
+      autor: "gustavo",
+      texto: "mandando meu currículo tbe, p vaga de namorado, ficante premium..\n\ndeixar no seu banco de talentos",
+      rapido: true,
+    },
+    { tipo: "mensagem", autor: "nubia", texto: "você me surpreende todos os dias", rapido: true },
+    { tipo: "mensagem", autor: "nubia", texto: "acho que podemos sair essa semana", rapido: true },
+    { tipo: "data", texto: "29 de abril" },
+    { tipo: "mensagem", autor: "nubia", texto: "oiii", reacao: "❤️", rapido: true },
+    { tipo: "mensagem", autor: "nubia", texto: "boa noite", reacao: "❤️", rapido: true },
+    { tipo: "mensagem", autor: "nubia", texto: "fiquei o dia todo atolada escrevendo pra minha ic", reacao: "💯", rapido: true },
+    { tipo: "mensagem", autor: "gustavo", texto: "se vc quiser ir no sábado~domingo ou quando tiver disponibilidade...", rapido: true },
+    { tipo: "mensagem", autor: "nubia", texto: "pior que estou com dor de garganta tbm", rapido: true },
+    { tipo: "mensagem", autor: "nubia", texto: "kkkkkkkkkkkkkkk", reacao: "😂", rapido: true },
+    { tipo: "data", texto: "14 de maio" },
+    { tipo: "audio", autor: "gustavo", duracao: "0:13" },
+    { tipo: "foto", autor: "gustavo", arquivo: "media/IMG-20260612-WA0024.jpg", temporaria: true },
+    { tipo: "audio", autor: "gustavo", duracao: "0:14" },
+    { tipo: "data", texto: "15 de maio" },
+    { tipo: "mensagem", autor: "gustavo", texto: "vinijr & virginia terminaram, nubia ñ me responde, ja era, vou desisti do amor hahah", rapido: true },
+    { tipo: "mensagem", autor: "nubia", texto: "kkkkkkkkkkkkkkkkkkkk", reacao: "😂", rapido: true },
+    { tipo: "data", texto: "17 de maio" },
+    { tipo: "mensagem", autor: "gustavo", texto: "te busco umas 17h? waze ta dando ~15min até la", rapido: true },
+    { tipo: "mensagem", autor: "gustavo", texto: "vou comprar os ingre. ja pelo app", rapido: true },
+    { tipo: "mensagem", autor: "nubia", texto: "belee", rapido: true },
+    { tipo: "mensagem", autor: "nubia", texto: "Perfeito", reacao: "❤️", rapido: true },
+    { tipo: "data", texto: "Hoje" },
     {
       tipo: "mensagem",
       autor: "gustavo",
@@ -53,12 +88,19 @@ const CONFIG = {
     { tipo: "conteudo", conteudo: "contador" },
     { tipo: "mensagem", autor: "gustavo", texto: "e pensar que tudo começou assim..." },
     { tipo: "conteudo", conteudo: "historia" },
-    { tipo: "mensagem", autor: "gustavo", texto: "separei algumas memórias que eu nunca quero esquecer" },
-    { tipo: "conteudo", conteudo: "fotos" },
     { tipo: "mensagem", autor: "gustavo", texto: "e ainda faltam muitos motivos pra dizer o quanto você é especial" },
     { tipo: "conteudo", conteudo: "motivos" },
     { tipo: "mensagem", autor: "gustavo", texto: "feliz aniversário e feliz dia dos namorados ❤️" },
     { tipo: "conteudo", conteudo: "aniversario" },
+    {
+      tipo: "mensagem",
+      autor: "gustavo",
+      texto:
+        "presentinho dos dias dos namorados (vulgo niver), posso te entregar? 🍫🌹\n\ncartaozinho de mensagem vai ta no qrcode customizado..\n\n(engenharia de software) haha",
+    },
+    { tipo: "mensagem", autor: "nubia", texto: "fico até com medo......", rapido: true },
+    { tipo: "mensagem", autor: "nubia", texto: "KKKKKKKKKKK", reacao: "😂", rapido: true },
+    { tipo: "mensagem", autor: "nubia", texto: "pode entregar", reacao: "❤️", rapido: true },
     { tipo: "mensagem", autor: "gustavo", texto: "por último, escrevi uma coisa que queria que você lesse com calma" },
     { tipo: "conteudo", conteudo: "carta" },
   ],
@@ -176,7 +218,7 @@ function setChatPerspective(viewer, animate = true) {
         avatar.hidden = true;
       };
 
-      $$(".chat-message[data-author]").forEach((bubble) => {
+      $$("[data-author]").forEach((bubble) => {
         const sent = bubble.dataset.author === viewer;
         bubble.classList.toggle("chat-message--sent", sent);
         bubble.classList.toggle("chat-message--received", !sent);
@@ -512,6 +554,51 @@ function setupChatIntro() {
       '<svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg>';
   };
 
+  const appendDate = (text) => {
+    const separator = document.createElement("div");
+    separator.className = "chat-date-separator";
+    separator.textContent = text;
+    messages.appendChild(separator);
+  };
+
+  const appendAudio = (step) => {
+    const audio = document.createElement("button");
+    audio.type = "button";
+    audio.className = "chat-audio-message chat-message--sent";
+    audio.dataset.author = step.autor;
+    audio.innerHTML = `
+      <span class="chat-audio-play">▶</span>
+      <span class="chat-audio-wave" aria-hidden="true">
+        ${Array.from({ length: 18 }, (_, index) => `<i style="--bar:${6 + ((index * 7) % 20)}px"></i>`).join("")}
+      </span>
+      <small>${step.duracao}</small>
+    `;
+    audio.addEventListener("click", () => {
+      audio.classList.toggle("is-playing");
+      $(".chat-audio-play", audio).textContent = audio.classList.contains("is-playing") ? "Ⅱ" : "▶";
+    });
+    messages.appendChild(audio);
+  };
+
+  const appendPhoto = (step) => {
+    const photo = document.createElement("button");
+    photo.type = "button";
+    photo.className = "chat-photo-message chat-message--sent";
+    photo.dataset.author = step.autor;
+    photo.innerHTML = step.temporaria
+      ? '<span class="chat-photo-once">①</span><strong>Foto</strong>'
+      : `<img src="${step.arquivo}" alt="Foto enviada na conversa">`;
+    photo.addEventListener(
+      "click",
+      () => {
+        photo.innerHTML = `<img src="${step.arquivo}" alt="Foto enviada na conversa">`;
+        photo.classList.add("is-open");
+      },
+      { once: true },
+    );
+    messages.appendChild(photo);
+  };
+
   const showAction = (step) => {
     currentAction = step;
     $("#chat-card-label").textContent = step.rotulo;
@@ -526,6 +613,28 @@ function setupChatIntro() {
     while (stepIndex < CONFIG.roteiroChat.length) {
       const step = CONFIG.roteiroChat[stepIndex];
       stepIndex += 1;
+      if (step.tipo === "data") {
+        appendDate(step.texto);
+        messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
+        await wait(260);
+        continue;
+      }
+      if (step.tipo === "audio") {
+        await switchPerspective(step.autor);
+        appendAudio(step);
+        setChatPerspective(currentViewer, false);
+        messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
+        await wait(420);
+        continue;
+      }
+      if (step.tipo === "foto") {
+        await switchPerspective(step.autor);
+        appendPhoto(step);
+        setChatPerspective(currentViewer, false);
+        messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
+        await wait(420);
+        continue;
+      }
       if (step.tipo === "jogo") {
         await switchPerspective("nubia");
         showAction(step);
@@ -541,15 +650,26 @@ function setupChatIntro() {
 
       await switchPerspective(step.autor);
       typing.hidden = true;
-      await typeInComposer(step.texto);
+      if (step.rapido) {
+        await wait(240 + Math.min(500, step.texto.length * 6));
+      } else {
+        await typeInComposer(step.texto);
+      }
 
       const bubble = document.createElement("div");
       bubble.className = "chat-message chat-message--sent";
       bubble.dataset.author = step.autor;
       bubble.textContent = step.texto;
       messages.appendChild(bubble);
+      if (step.reacao) {
+        const reaction = document.createElement("button");
+        reaction.type = "button";
+        reaction.className = "message-reaction";
+        reaction.textContent = step.reacao;
+        bubble.appendChild(reaction);
+      }
       messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
-      await wait(480);
+      await wait(step.rapido ? 300 : 480);
     }
   };
 
@@ -693,7 +813,7 @@ function setupMessageReactions() {
   let lastTap = 0;
 
   const findTarget = (element) =>
-    element.closest(".chat-message, .chat-content-card, .chat-gift");
+    element.closest(".chat-message, .chat-audio-message, .chat-photo-message, .chat-content-card, .chat-gift");
 
   const setReaction = (element, emoji) => {
     if (!element) return;
@@ -997,19 +1117,15 @@ function setupInteractions(playMusic) {
   });
 }
 
+function setupLetterModal() {
+  const modal = $("#letter-modal");
+  $("#close-letter").addEventListener("click", () => modal.close());
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) modal.close();
+  });
+}
+
 fillPersonalDetails();
 setupChatIntro();
 setupMessageReactions();
-buildTimeline();
-buildGallery();
-buildRetrospective();
-buildReasons();
-updateCounter();
-window.setInterval(updateCounter, 60_000);
-const playMusic = setupMusic();
-setupRevealAnimations();
-setupInteractions(playMusic);
-setupRetrospective();
-setupScratchCard();
-setupVoiceMessage();
-setupStarField();
+setupLetterModal();

@@ -388,6 +388,125 @@ button {
   background: linear-gradient(135deg, #693af4 0%, #9b30ef 48%, #e32ab7 100%);
 }
 
+.chat-date-separator {
+  align-self: center;
+  margin: 14px 0 7px;
+  color: #a09ca5;
+  font-size: 0.62rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.chat-audio-message {
+  position: relative;
+  display: flex;
+  max-width: 78%;
+  min-height: 62px;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 13px;
+  border: 0;
+  border-radius: 18px;
+  color: white;
+  background: linear-gradient(135deg, #693af4, #c32acf);
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+.chat-audio-message.chat-message--sent,
+.chat-photo-message.chat-message--sent {
+  align-self: flex-end;
+  color: white;
+  background: linear-gradient(135deg, #693af4, #c32acf);
+}
+
+.chat-audio-message.chat-message--received,
+.chat-photo-message.chat-message--received {
+  align-self: flex-start;
+  color: #242127;
+  background: #efeff2;
+}
+
+.chat-audio-play {
+  display: grid;
+  width: 31px;
+  height: 31px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 0.7rem;
+  flex: 0 0 auto;
+  place-items: center;
+}
+
+.chat-message--received .chat-audio-play {
+  background: rgba(30, 25, 34, 0.08);
+}
+
+.chat-audio-wave {
+  display: flex;
+  height: 32px;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+}
+
+.chat-audio-wave i {
+  width: 2px;
+  height: var(--bar);
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0.82;
+}
+
+.chat-audio-message.is-playing .chat-audio-wave i {
+  animation: audio-wave 0.6s ease-in-out infinite alternate;
+}
+
+.chat-audio-message small {
+  font-size: 0.62rem;
+  opacity: 0.78;
+}
+
+.chat-photo-message {
+  position: relative;
+  display: flex;
+  max-width: 72%;
+  min-width: 120px;
+  min-height: 56px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 17px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 18px;
+  font-size: 0.86rem;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+.chat-photo-message.is-open {
+  width: 76%;
+  height: 280px;
+  padding: 0;
+  background: #111;
+}
+
+.chat-photo-message img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.chat-photo-once {
+  display: grid;
+  width: 29px;
+  height: 29px;
+  border: 2px dashed currentColor;
+  border-radius: 50%;
+  place-items: center;
+}
+
 .chat-content-card {
   position: relative;
   width: 86%;
@@ -2520,6 +2639,10 @@ footer > span {
 
 @keyframes reaction-pop {
   50% { transform: scale(1.45); }
+}
+
+@keyframes audio-wave {
+  to { transform: scaleY(0.4); }
 }
 
 @keyframes picker-open {
