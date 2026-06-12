@@ -645,7 +645,7 @@ function setupChatIntro() {
       }
       if (step.tipo === "conteudo") {
         await switchPerspective("nubia");
-        appendChatContent(step.conteudo, messages);
+        appendChatContent(step.conteudo, messages, restartConversation);
         messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
         await wait(900);
         continue;
@@ -719,7 +719,7 @@ function setupChatIntro() {
   return restartConversation;
 }
 
-function appendChatContent(type, messages) {
+function appendChatContent(type, messages, restartConversation) {
   const card = document.createElement("article");
   card.className = `chat-content-card chat-content-card--${type}`;
 
@@ -773,10 +773,18 @@ function appendChatContent(type, messages) {
       <strong>Uma carta para você</strong>
       <p>Essa parte merece uma tela só dela.</p>
       <button class="chat-letter-open" type="button">Abrir carta</button>
+      <button class="chat-letter-replay" type="button" hidden>Ler conversa novamente ↻</button>
     `;
+    const replayButton = $(".chat-letter-replay", card);
     $(".chat-letter-open", card).addEventListener("click", () => {
       $("#letter-modal").showModal();
+      replayButton.hidden = false;
       createHearts(12);
+    });
+    replayButton.addEventListener("click", () => {
+      $("#letter-modal").close();
+      restartConversation();
+      $("#chat-intro").scrollIntoView({ behavior: "smooth", block: "start" });
     });
   }
 
@@ -1099,14 +1107,9 @@ function setupInteractions(playMusic) {
   });
 }
 
-function setupLetterModal(restartConversation) {
+function setupLetterModal() {
   const modal = $("#letter-modal");
   $("#close-letter").addEventListener("click", () => modal.close());
-  $("#replay-conversation").addEventListener("click", () => {
-    modal.close();
-    restartConversation();
-    $("#chat-intro").scrollIntoView({ behavior: "smooth", block: "start" });
-  });
   modal.addEventListener("click", (event) => {
     if (event.target === modal) modal.close();
   });
@@ -1115,4 +1118,4 @@ function setupLetterModal(restartConversation) {
 fillPersonalDetails();
 const restartConversation = setupChatIntro();
 setupMessageReactions();
-setupLetterModal(restartConversation);
+setupLetterModal();

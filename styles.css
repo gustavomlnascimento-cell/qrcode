@@ -725,6 +725,19 @@ button {
   cursor: pointer;
 }
 
+.chat-letter-replay {
+  width: 100%;
+  margin-top: 8px;
+  padding: 11px;
+  border: 1px solid #a73660;
+  border-radius: 10px;
+  color: #8b294a;
+  background: transparent;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 .chat-typing {
   position: absolute;
   bottom: 104px;
@@ -2560,20 +2573,6 @@ footer > span {
   margin-top: 40px;
   font-family: Georgia, serif;
   font-style: italic;
-}
-
-.letter-replay {
-  width: 100%;
-  margin-top: 28px;
-  padding: 14px 20px;
-  border: 0;
-  border-radius: 99px;
-  color: white;
-  background: linear-gradient(100deg, #743df0, #d32caf);
-  box-shadow: 0 12px 25px rgba(139, 45, 185, 0.22);
-  font-size: 0.82rem;
-  font-weight: 700;
-  cursor: pointer;
 }
 
 .modal-close {
