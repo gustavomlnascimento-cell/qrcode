@@ -729,10 +729,9 @@ function appendChatContent(type, messages, restartConversation) {
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const totalDays = Math.max(0, Math.floor((today.getTime() - start.getTime()) / 86_400_000));
     card.innerHTML = `
-      <img class="chat-counter-photo" src="media/tempo.jpg" alt="Atividade compartilhada no Instagram desde outubro de 2024">
       <small>Desde outubro de 2024</small>
       <strong>${totalDays.toLocaleString("pt-BR")} dias</strong>
-      <p>desde que começamos a nos seguir e colecionar momentos.</p>
+      <p>desde que nos conhecemos e começamos a colecionar momentos.</p>
     `;
   }
 

@@ -618,19 +618,8 @@ button {
 }
 
 .chat-content-card--contador {
-  overflow: hidden;
   color: white;
   background: linear-gradient(145deg, #6d3bea, #b72cd2 55%, #ee397d);
-}
-
-.chat-counter-photo {
-  display: block;
-  width: calc(100% + 36px);
-  max-height: 255px;
-  margin: -18px -18px 18px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-  object-fit: cover;
-  object-position: center 23%;
 }
 
 .chat-content-card--contador > small,
