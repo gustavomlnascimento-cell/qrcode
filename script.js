@@ -87,7 +87,6 @@ const CONFIG = {
     },
     { tipo: "conteudo", conteudo: "contador" },
     { tipo: "conteudo", conteudo: "historia" },
-    { tipo: "conteudo", conteudo: "motivos" },
     { tipo: "conteudo", conteudo: "aniversario" },
     { tipo: "conteudo", conteudo: "carta" },
   ],
@@ -756,20 +755,6 @@ function appendChatContent(type, messages) {
       </div>
       <p>${CONFIG.fotos[0]?.legenda || "Nossas memórias"}</p>
     `;
-  }
-
-  if (type === "motivos") {
-    card.innerHTML = `
-      <small>Coisas que amo em você</small>
-      <strong class="chat-reason" id="chat-reason">${CONFIG.motivos[0]}</strong>
-      <button class="chat-reason-next" type="button">ver outro motivo <span>1/${CONFIG.motivos.length}</span></button>
-    `;
-    let reasonIndex = 0;
-    $(".chat-reason-next", card).addEventListener("click", () => {
-      reasonIndex = (reasonIndex + 1) % CONFIG.motivos.length;
-      $(".chat-reason", card).textContent = CONFIG.motivos[reasonIndex];
-      $(".chat-reason-next span", card).textContent = `${reasonIndex + 1}/${CONFIG.motivos.length}`;
-    });
   }
 
   if (type === "aniversario") {

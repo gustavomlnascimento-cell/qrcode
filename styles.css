@@ -707,36 +707,6 @@ button {
   line-height: 1.5;
 }
 
-.chat-content-card--motivos {
-  padding: 20px;
-  background: linear-gradient(150deg, #fffafd, #f7f1ff);
-}
-
-.chat-reason {
-  min-height: 67px;
-  font: 400 1.45rem/1.15 var(--serif);
-}
-
-.chat-reason-next {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 18px;
-  padding: 10px 0 0;
-  border: 0;
-  border-top: 1px solid #e7dce9;
-  color: #8438d0;
-  background: transparent;
-  font-size: 0.68rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.chat-reason-next span {
-  color: #9b929e;
-}
-
 .chat-content-card--aniversario {
   position: relative;
   padding: 23px 20px;
