@@ -24,9 +24,6 @@
     <section class="chat-intro" id="chat-intro" aria-label="Conversa especial">
       <div class="chat-showcase">
         <div class="phone-scene">
-          <span class="phone-heart phone-heart--one" aria-hidden="true">♥</span>
-          <span class="phone-heart phone-heart--two" aria-hidden="true">♥</span>
-          <span class="phone-heart phone-heart--three" aria-hidden="true">♥</span>
           <div class="phone-shell">
             <i class="phone-button phone-button--mute" aria-hidden="true"></i>
             <i class="phone-button phone-button--volume-one" aria-hidden="true"></i>
@@ -40,19 +37,21 @@
               </div>
 
               <header class="chat-header">
-                <button class="chat-header__back" type="button" aria-label="Voltar">‹</button>
+                <button class="chat-header__back" type="button" aria-label="Voltar">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+                </button>
                 <div class="chat-avatar">
                   <img id="chat-avatar-image" alt="" hidden />
                   <span id="chat-avatar-initials">SA</span>
                   <i aria-hidden="true"></i>
                 </div>
                 <div class="chat-profile">
-                  <strong id="chat-profile-name">Seu Amor</strong>
-                  <span id="chat-profile-user">@seuamor</span>
+                  <strong id="chat-profile-name">Gustavo</strong>
+                  <span id="chat-profile-user">@gustavo</span>
                 </div>
                 <div class="chat-header__actions" aria-hidden="true">
-                  <span>◇</span>
-                  <span>○</span>
+                  <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.56 2.81.69A2 2 0 0 1 22 16.92Z" /></svg>
+                  <svg viewBox="0 0 24 24"><path d="m16 13 5 3V8l-5 3v2Z" /><rect x="3" y="6" width="13" height="12" rx="2" /></svg>
                 </div>
               </header>
 
@@ -101,21 +100,17 @@
               <button class="chat-skip" id="chat-skip" type="button">Pular conversa</button>
 
               <div class="chat-composer" aria-hidden="true">
-                <span></span>
+                <span>
+                  <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></svg>
+                </span>
                 <p>Mensagem...</p>
-                <i>♡</i>
+                <i>
+                  <svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z" /></svg>
+                </i>
               </div>
               <span class="phone-home" aria-hidden="true"></span>
             </div>
           </div>
-        </div>
-
-        <div class="chat-presentation">
-          <span class="chat-presentation__icon" aria-hidden="true">♥</span>
-          <p>Uma mensagem chegou para</p>
-          <h1 data-name>meu amor</h1>
-          <span>Talvez seja melhor abrir com o coração.</span>
-          <button id="chat-focus" type="button">Ver a mensagem <b>→</b></button>
         </div>
       </div>
     </section>

@@ -1,8 +1,8 @@
 // PERSONALIZE AQUI: este é o único bloco que você precisa editar.
 const CONFIG = {
-  nomeDela: "Meu Amor",
-  seuNome: "Seu Amor",
-  usuarioChat: "@seuamor",
+  nomeDela: "Ela",
+  seuNome: "Gustavo",
+  usuarioChat: "@gustavo",
   fotoPerfilChat: "", // Exemplo: "assets/perfil.jpg"
   opcoesRoleta: [
     "Jantar romântico",
@@ -13,10 +13,10 @@ const CONFIG = {
     "Muitos beijos",
   ],
   roteiroChat: [
-    { tipo: "mensagem", lado: "recebida", texto: "Oi, meu amor..." },
-    { tipo: "mensagem", lado: "enviada", texto: "Oi amor, o que foi? 👀" },
-    { tipo: "mensagem", lado: "recebida", texto: "Hoje eu queria te entregar algo diferente." },
-    { tipo: "mensagem", lado: "recebida", texto: "Mas primeiro preciso saber se você está preparada 😌" },
+    { tipo: "mensagem", lado: "recebida", texto: "oii" },
+    { tipo: "mensagem", lado: "enviada", texto: "oi, aconteceu alguma coisa? 👀" },
+    { tipo: "mensagem", lado: "recebida", texto: "tenho uma coisa pra te mostrar" },
+    { tipo: "mensagem", lado: "recebida", texto: "mas antes quero ver se você consegue passar por um desafio kkk" },
     {
       tipo: "jogo",
       jogo: "memoria",
@@ -440,7 +440,6 @@ function setupChatIntro() {
   const messages = $("#chat-messages");
   const typing = $("#chat-typing");
   const actionCard = $("#chat-gift");
-  const phoneScene = $(".phone-scene");
   let stopped = false;
   let currentAction = null;
   let stepIndex = 0;
@@ -515,11 +514,6 @@ function setupChatIntro() {
     }
   });
   $("#chat-skip").addEventListener("click", finishChat);
-  $("#chat-focus").addEventListener("click", () => {
-    phoneScene.classList.remove("is-highlighted");
-    window.requestAnimationFrame(() => phoneScene.classList.add("is-highlighted"));
-    window.setTimeout(() => phoneScene.classList.remove("is-highlighted"), 700);
-  });
 
   const updatePhoneTime = () => {
     $("#phone-time").textContent = new Date().toLocaleTimeString("pt-BR", {
