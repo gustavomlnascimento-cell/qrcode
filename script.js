@@ -204,6 +204,7 @@ function setChatPerspective(viewer, animate = true) {
         .toUpperCase();
       avatar.src = otherPerson.foto;
       avatar.hidden = false;
+      avatar.classList.toggle("chat-avatar__image--gustavo", otherPerson === CONFIG.pessoas.gustavo);
       avatar.onerror = () => {
         avatar.hidden = true;
       };
